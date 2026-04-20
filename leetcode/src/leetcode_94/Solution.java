@@ -1,0 +1,38 @@
+package leetcode_94;
+
+import java.util.ArrayList;
+import java.util.List;
+
+
+
+class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    TreeNode() {}
+    TreeNode(int val) { this.val = val; }
+    TreeNode(int val, TreeNode left, TreeNode right) {
+        this.val = val;
+        this.left = left;
+        this.right = right;
+    }
+}
+
+class Solution {
+    /***
+     * 二叉树的中序遍历:左、中、右
+     * @param root
+     * @return
+     */
+    public List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> res=new ArrayList<>();
+        traverse(root,res);
+        return res;
+    }
+    private void traverse(TreeNode root,List<Integer> res){
+        if(root==null)return;
+        traverse(root.left,res);
+        res.add(root.val);
+        traverse(root.right,res);
+    }
+}
