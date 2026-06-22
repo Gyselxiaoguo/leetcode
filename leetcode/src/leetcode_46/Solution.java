@@ -17,31 +17,24 @@ class Solution {
     }
 
     private void backTrack(int[] nums, boolean[] used){
-        if(path.size()== nums.length){
-            result.add(new ArrayList<>(path));
-            return;
-        }
-        for (int i = 0; i < nums.length; i++) {
-            if(used[i]){continue;} //用过
-            //第一次使用
-            used[i]=true;
-            path.add(nums[i]);
-            //回溯
-            backTrack(nums,used);
-            //去除标记
-            used[i]=false;
-            //删除path中最后一个元素，撤销上一步的选择，让程序回到上一层递归的状态，继续尝试其他可能的选择。
-            path.remove(path.size()-1);
-        }
+    if(path.size()== nums.length){
+        result.add(new ArrayList<>(path));
+        return;
     }
+    for (int i = 0; i < nums.length; i++) {
+        if(used[i]){continue;} //用过
+
+        used[i]=true;//第一次使用
+
+        path.add(nums[i]);
+        backTrack(nums,used);//回溯
+        path.remove(path.size()-1); //删除path中最后一个元素，撤销上一步的选择，让程序回到上一层递归的状态，继续尝试其他可能的选择。
+
+        used[i]=false;//去除标记
+    }
+}
 
 }
 
-//测试
-class Test{
-    public static void main(String[] args) {
-        Solution s=new Solution();
-        int[] nums={1,2,3};
-        s.permute(nums);
-    }
-}
+
+

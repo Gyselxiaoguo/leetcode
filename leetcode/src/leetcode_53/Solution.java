@@ -3,19 +3,14 @@ package leetcode_53;
 import java.util.Arrays;
 
 class Solution {
-    /***
-     * 思路：遍历，前面元素之和>0时，加到当前元素上
-     * @param nums
-     * @return
-     */
+
     public int maxSubArray(int[] nums) {
-        int len=nums.length;
-        int[] newNums=new int[len];
-        System.arraycopy(nums,0,newNums,0,nums.length);
+        int curMax = nums[0];
+        int globalMax=nums[0];
         for (int i = 1; i < nums.length; i++) {
-            if(newNums[i-1]>0)newNums[i]+=newNums[i-1];
+            curMax=Math.max(nums[i],nums[i]+curMax);
+            globalMax=Math.max(curMax,globalMax);
         }
-        Arrays.sort(newNums);
-        return newNums[len-1];
+        return globalMax;
     }
 }

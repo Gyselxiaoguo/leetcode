@@ -8,20 +8,25 @@ class ListNode {
     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
 }
 class Solution {
+    /*用头插法实现完整链表反转*/
     public ListNode reverseList(ListNode head) {
-        if(head==null || head.next==null){
-            //只有一个元素或没有元素
+        //节点个数<=1
+        if(head==null||head.next==null){
             return head;
         }
-        ListNode pre=null;
-        ListNode cur=head;
-        ListNode next;
-        while (cur!=null){
-            next=cur.next;
-            cur.next=pre;
-            pre=cur;
-            cur=next;
+
+        //节点个数>=2
+        ListNode dummy=new ListNode(-1);
+        dummy.next=head;
+
+        ListNode pre=dummy;
+        ListNode cur=pre.next;
+        while (cur.next!=null){
+            ListNode next=cur.next;
+            cur.next=next.next;
+            next.next=pre.next;
+            pre.next=next;
         }
-        return pre;
+        return pre.next;
     }
 }

@@ -7,10 +7,6 @@ import java.util.List;
 
 class Solution {
     public int[][] merge(int[][] intervals) {
-        int[] arr = new int[5];
-        int[] arr2={1,2,3,4,5};
-        int[] arr3 = new int[]{1, 2, 3, 4, 5};
-
 
         int len=intervals.length;
         //根据左边界值进行升序排序

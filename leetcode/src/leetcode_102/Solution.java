@@ -19,23 +19,34 @@ class TreeNode {
     }
 }
 
+
 class Solution {
-    //采用广度优先遍历求解
+    /*
+    *采用广度优先遍历入队列
+    * */
     public List<List<Integer>> levelOrder(TreeNode root) {
-        List<List<Integer>> res=new ArrayList<>();
-        Queue<TreeNode> queue=new ArrayDeque<>();//使用队列存放节点
-        if(root!=null)queue.add(root);
+
+        List<List<Integer>> list=new ArrayList<>();
+        Queue<TreeNode> queue=new ArrayDeque<>();   //使用队列存放节点
+
+        if(root!=null){
+            queue.add(root);
+        }
         while (!queue.isEmpty()){
-            int n = queue.size();
-            List<Integer> level=new ArrayList<>();
-            for (int i = 0; i < n; i++) {
+            int size = queue.size();
+            List<Integer> level=new ArrayList<>();  //记录每一层的元素
+            for (int i = 0; i < size; i++) {
                 TreeNode node = queue.poll();
                 level.add(node.val);
-                if(node.left!=null)queue.add(node.left);
-                if(node.right!=null)queue.add(node.right);
+                if(node.left!=null){
+                    queue.add(node.left);
+                }
+                if(node.right!=null){
+                    queue.add(node.right);
+                }
             }
-            res.add(level);
+            list.add(level);
         }
-        return res;
+        return list;
     }
 }

@@ -1,43 +1,63 @@
 package leetcode_207;
 
-class Solution {
-    /*拓扑图*/
-    /***
-     * point  前驱节点数量
-     * 0        xx
-     * 1        xx
-     * 2        xx
-     */
+import java.util.*;
 
-    /***
-     * prerequisites的元素是个数组，元素1：后继节点，元素2：前驱节点
-     * @param numCourses
-     * @param prerequisites
-     * @return
-     */
+class Solution {
+
     public boolean canFinish(int numCourses, int[][] prerequisites) {
-        int len = prerequisites.length;
-        if(len==0)return true;
-        int[] pointer=new int[numCourses];
-        for (int[] prerequisite : prerequisites) {
-            ++pointer[prerequisite[1]];//记录每个前驱节点的个数
+        // map: key=课程节点, value=该节点前驱数量，所有出现过的节点初始0
+        Map<Integer, Integer> map = new HashMap<>();
+        // 邻接表：记录边 condition -> course，学完condition才能学course
+        Map<Integer, List<Integer>> adj = new HashMap<>();
+        Queue<Integer> queue = new ArrayDeque<>();
+        int count = 0;
+
+        // 1.初始化所有出现的节点入度为0，同时构建邻接表、更新入度
+        for (int[] edge : prerequisites) {
+            int course = edge[0];   //要学习的课程
+            int condition = edge[1];    //学习课程的条件
+            //节点的默认前驱个数为0
+            map.putIfAbsent(course, 0);
+            map.putIfAbsent(condition, 0);
+            //节点的前驱个数+1
+            map.put(course,map.get(course)+1);
+            //构建邻接关系
+            adj.computeIfAbsent(condition,k->new ArrayList<>()).add(course);
         }
-        boolean[] removed=new boolean[len];//标记prerequisites元素是否被移除
-        int remove=0;//移除元素数量
-        while (remove<len){
-            int currRemove=0;//本轮移除元素个数
-            for (int i = 0; i < len; i++) {
-                if(removed[i])continue;//已经移除，进行下一个元素
-                int[] prerequisite=prerequisites[i];
-                if(pointer[prerequisite[0]]==0){//该节点没有前驱节点，可删除
-                    removed[i]=true;
-                    --pointer[prerequisite[1]];//前驱节点个数  -1
-                    ++currRemove;
+        // 2. 收集map中入度为0的节点
+        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+            if (entry.getValue() == 0) {
+                queue.offer(entry.getKey());
+                count++;
+            }
+        }
+        // 3.BFS拓扑排序核心逻辑
+        while (!queue.isEmpty()) {
+            Integer cur = queue.poll();
+            // 当前节点没有后继，直接跳过
+            if(!adj.containsKey(cur)){
+                continue;
+            }
+            for (Integer nextCourse : adj.get(cur)) {
+                // 节点永远存在map，不会null
+                int newIn = map.get(nextCourse) - 1;
+                map.put(nextCourse, newIn);
+                // 减完入度为0，入队、计数+1、从map移除
+                if(map.get(nextCourse)==0){
+                    queue.offer(nextCourse);
+                    count++;
                 }
             }
-            if(currRemove==0)return false;//进行一轮没有删除一个元素，说明有环
-            remove+=currRemove;
         }
-        return true;
+        //4.处理完全没出现在prerequisites的孤立课程（入度天然0）
+        for (int i = 0; i < numCourses; i++) {
+            if (!map.containsKey(i)) {
+                count++;
+            }
+        }
+
+        return count==numCourses;
     }
 }
+
+
