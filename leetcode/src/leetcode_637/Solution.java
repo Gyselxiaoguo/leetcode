@@ -1,4 +1,4 @@
-package leetcode_102;
+package leetcode_637;
 
 
 import java.util.ArrayDeque;
@@ -19,22 +19,28 @@ class TreeNode {
     }
 }
 
-
 class Solution {
-    /*
-    *采用广度优先遍历入队列
-    * */
-    public List<List<Integer>> levelOrder(TreeNode root) {
+    public List<Double> averageOfLevels(TreeNode root) {
+        List<List<Integer>> lists=levelTraversal(root);
+        List<Double> res=new ArrayList<>();
+        for (List<Integer> list : lists) {
+            long sum = list.stream().mapToLong(value -> value).sum();   //相加防止移除，使用Long类型
+            double avg = (double) sum / list.size();
+            res.add(avg);
+        }
+        return res;
+    }
 
+    private List<List<Integer>> levelTraversal(TreeNode root) {
         List<List<Integer>> list=new ArrayList<>();
-        Queue<TreeNode> queue=new ArrayDeque<>();   //使用队列存放节点
+        Queue<TreeNode> queue=new ArrayDeque<>();
 
         if(root!=null){
             queue.add(root);
         }
         while (!queue.isEmpty()){
             int size = queue.size();
-            List<Integer> level=new ArrayList<>();  //记录每一层的元素
+            List<Integer> level=new ArrayList<>();
             for (int i = 0; i < size; i++) {
                 TreeNode node = queue.poll();
                 level.add(node.val);

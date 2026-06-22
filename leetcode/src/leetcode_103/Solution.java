@@ -1,10 +1,8 @@
-package leetcode_102;
+package leetcode_103;
 
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
+import java.util.stream.IntStream;
 
 class TreeNode {
     int val;
@@ -19,22 +17,29 @@ class TreeNode {
     }
 }
 
-
 class Solution {
-    /*
-    *采用广度优先遍历入队列
-    * */
-    public List<List<Integer>> levelOrder(TreeNode root) {
+    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+        List<List<Integer>> lists=levelTraversal(root);
+        IntStream.range(0,lists.size())
+                .filter(i->(i+1)%2==0)  //过滤，只剩下要翻转的位置
+                .forEach(i->{   //翻转
+                    List<Integer> list = lists.get(i);
+                    Collections.reverse(list);
+                });
 
+        return lists;
+    }
+
+    private List<List<Integer>> levelTraversal(TreeNode root) {
         List<List<Integer>> list=new ArrayList<>();
-        Queue<TreeNode> queue=new ArrayDeque<>();   //使用队列存放节点
+        Queue<TreeNode> queue=new ArrayDeque<>();
 
         if(root!=null){
             queue.add(root);
         }
         while (!queue.isEmpty()){
             int size = queue.size();
-            List<Integer> level=new ArrayList<>();  //记录每一层的元素
+            List<Integer> level=new ArrayList<>();
             for (int i = 0; i < size; i++) {
                 TreeNode node = queue.poll();
                 level.add(node.val);

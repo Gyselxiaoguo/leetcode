@@ -1,10 +1,7 @@
-package leetcode_102;
+package leetcode_222;
 
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 class TreeNode {
     int val;
@@ -19,22 +16,25 @@ class TreeNode {
     }
 }
 
-
 class Solution {
-    /*
-    *采用广度优先遍历入队列
-    * */
-    public List<List<Integer>> levelOrder(TreeNode root) {
+    public int countNodes(TreeNode root) {
+        List<List<Integer>> list= levelOrder(root);
+        //前n-1层套用公式2^(n-1)-1计算节点个数,第n层遍历计数
+        int layers = list.size();
+        if (layers == 0) return 0;
+//        return  (int) (Math.pow(2, layers - 1) - 1)+list.get(layers-1).size();
+        return (1 << (layers - 1)) - 1 + list.get(layers-1).size();
+    }
 
+    private List<List<Integer>> levelOrder(TreeNode root) {
         List<List<Integer>> list=new ArrayList<>();
-        Queue<TreeNode> queue=new ArrayDeque<>();   //使用队列存放节点
-
+        Queue<TreeNode> queue=new ArrayDeque<>();
         if(root!=null){
             queue.add(root);
         }
         while (!queue.isEmpty()){
             int size = queue.size();
-            List<Integer> level=new ArrayList<>();  //记录每一层的元素
+            List<Integer> level=new ArrayList<>();
             for (int i = 0; i < size; i++) {
                 TreeNode node = queue.poll();
                 level.add(node.val);
