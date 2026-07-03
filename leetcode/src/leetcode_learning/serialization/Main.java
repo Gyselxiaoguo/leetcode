@@ -2,27 +2,26 @@ package leetcode_learning.serialization;
 
 import java.io.*;
 
-
+/**
+ * java默认的序列化
+ */
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
         // 1. 序列化：对象写入 person.dat 文件
-        Person person = new Person("David");
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("person.dat"))) {
-            oos.writeObject(person);
-            System.out.println("序列化完成，已将对象写入文件");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        Person person = new Person("Gysel");
+
+        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("person.dat"));//输出文件
+        oos.writeObject(person);
+        System.out.println("序列化完成，已将对象写入文件");
+
 
         // 2. 反序列化：从文件读取对象
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("person.dat"))) {
-            // 读取并强转为Person
-            Person restoredPerson = (Person) ois.readObject();
-            System.out.println("反序列化成功，读取到对象：" + restoredPerson);
-            restoredPerson.sayHello();
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+        ObjectInputStream ois = new ObjectInputStream(new FileInputStream("person.dat"));
+        // 读取并强转为Person
+        Person restoredPerson = (Person) ois.readObject();
+        System.out.println("反序列化成功，读取到对象：" + restoredPerson);
+        restoredPerson.sayHello();
+
     }
 }
 
