@@ -13,8 +13,12 @@ class Solution {
             int volume=h*(right-left);
 
             max=Math.max(max,volume);
-            if(height[left] < height[right])left++;
-            else right--;
+            if(height[left] < height[right]){
+                left++;
+            }
+            else {
+                right--;
+            }
         }
         return max;
     }
