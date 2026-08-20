@@ -13,6 +13,7 @@ class Solution {
                 if(board[i][j]!='.'){
                     int num=board[i][j]-'1';    //对应列索引
                     int blockIndex=i/3*3+j/3;   //9个3x3的块的索引
+
                     if(row[i][num]||col[j][num]||block[blockIndex][num]){
                         return false;
                     }else {

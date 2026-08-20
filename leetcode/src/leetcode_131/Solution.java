@@ -6,6 +6,11 @@ import java.util.List;
 class Solution {
     List<List<String>> res=new ArrayList<>();
     List<String> path=new ArrayList<>();
+
+    public static void main(String[] args) {
+        Solution s = new Solution();
+        System.out.println(s.partition("aaa"));
+    }
     public List<List<String>> partition(String s) {
         backtrack(s,0);
         return res;

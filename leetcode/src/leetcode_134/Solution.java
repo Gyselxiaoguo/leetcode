@@ -1,5 +1,8 @@
 package leetcode_134;
 
+/**
+ * 前缀和最小值对应的下一个位置就是合法起点。
+ */
 class Solution {
     public int canCompleteCircuit(int[] gas, int[] cost) {
         int n=gas.length;

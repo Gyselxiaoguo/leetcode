@@ -33,7 +33,7 @@ class Singleton3 {
     public static Singleton3 getInstance(){
         if(singleton==null){    //只有第一次创建对象时才会进入同步代码块
             synchronized (Singleton3.class){    //防止多线程同时进入内层，创建多个对象
-                if(singleton==null){    //防止多个线程在外层 if 阻塞排队，等锁释放后重复创建实例
+                if(singleton==null){    //防止阻塞排队的线程，等锁释放后重复创建实例
                     singleton=new Singleton3();
                 }
             }

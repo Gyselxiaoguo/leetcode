@@ -17,13 +17,17 @@ class TreeNode {
 
 class Solution {
     public TreeNode invertTree(TreeNode root) {
-        if(root==null)return null;
-        root.left=invertTree(root.left);
-        root.right = invertTree(root.right);
-        TreeNode temp;
-        temp=root.left;
+        if(root==null){
+            return null;
+        }
+        invertTree(root.left);
+        invertTree(root.right);
+        swapTree(root); //从下往上 依次交换
+        return root;
+    }
+    private void swapTree(TreeNode root){   //交换左右子树
+        TreeNode temp=root.left;
         root.left=root.right;
         root.right=temp;
-        return root;
     }
 }

@@ -1,5 +1,9 @@
 package leetcode_240;
 
+/**
+ * 从右上角出发
+ * 类似于一个‘7’
+ */
 class Solution {
     public boolean searchMatrix(int[][] matrix, int target) {
         int startRow=0;

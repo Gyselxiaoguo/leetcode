@@ -10,26 +10,29 @@ class Solution {
      * @return
      */
     public int[] maxSlidingWindow(int[] nums, int k) {
-        List<Integer> res=new ArrayList<>();
+        int n = nums.length;
+        int[] res=new int[n-k+1];
+        int idx=0;
         Deque<Integer> deque=new ArrayDeque<>();   //滑动窗口中存储数组元素的索引
-        for(int r=0;r<nums.length;r++){
 
+        for (int right = 0; right < n; right++) {
             // 1. 维护单调递减：队尾小于当前值全部弹出
-            while(!deque.isEmpty()&&nums[deque.peekLast()]<=nums[r]){
+            while (!deque.isEmpty()&&nums[right]>=nums[deque.peekLast()]){
                 deque.pollLast();
             }
-            deque.addLast(r);
+            deque.addLast(right);
 
             // 2. 移除滑出窗口的过期下标
-            while(deque.peekFirst()<r-k+1){
+            int left = right - k + 1;
+            while (deque.peekFirst() < left) {
                 deque.pollFirst();
             }
 
             // 3. 窗口长度达到k，开始记录答案
-            if(r+1>=k){
-                res.add(nums[deque.peekFirst()]);
+            if (right >= k - 1) {
+                res[idx++] = nums[deque.peekFirst()];
             }
         }
-        return res.stream().mapToInt(Integer::intValue).toArray();
+        return res;
     }
 }

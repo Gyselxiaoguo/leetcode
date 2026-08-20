@@ -7,7 +7,7 @@ class Solution {
         int end=0;
         for (int i = 0; i < nums.length-1; i++) {
             maxpos = Math.max(nums[i] + i, maxpos);
-            if(end==i){
+            if(end==i){ //i == end：说明到达上一次跳跃的终点，必须再跳一步
                 ans++;
                 end=maxpos;
             }

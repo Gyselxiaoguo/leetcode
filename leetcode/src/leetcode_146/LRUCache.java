@@ -57,7 +57,7 @@ class LRUCache {
             }
         }
     }
-    private void cutNode(Node node){//删除节点
+    private void cutNode(Node node){//删除当前节点
         node.pre.next=node.next;
         node.next.pre=node.pre;
         node.pre=null;

@@ -4,33 +4,29 @@ import java.util.Stack;
 
 class Solution {
     public int evalRPN(String[] tokens) {
-        //不涉及运算情况
-        if(tokens.length==1){
-            return Integer.parseInt(tokens[0]);
-        }
-        //涉及运算情况
         Stack<Integer> stack=new Stack<>();
-        for (String token : tokens) {
-            if("+".equals(token)){
-                Integer num1 = stack.pop();
-                Integer num2 = stack.pop();
-                stack.push(num2 + num1);
-            }else if("-".equals(token)){
-                Integer num1 = stack.pop();
-                Integer num2 = stack.pop();
-                stack.push(num2 - num1);
-            }else if("*".equals(token)){
-                Integer num1 = stack.pop();
-                Integer num2 = stack.pop();
-                stack.push(num2 * num1);
-            }else if("/".equals(token)){
-                Integer num1 = stack.pop();
-                Integer num2 = stack.pop();
-                stack.push(num2 / num1);
-            }else {
-                stack.push(Integer.parseInt(token));
+        int n=tokens.length;
+        for(int i=0;i<n;i++){
+            String s=tokens[i];
+            if(s.equals("+")||s.equals("-")||s.equals("/")||s.equals("*")){
+                calc(stack,s);
+            }else{
+                stack.push(Integer.parseInt(s));
             }
         }
-        return stack.pop();
+        return stack.peek();
+    }
+    private void calc(Stack<Integer> stack,String s){
+        int num1=stack.pop();
+        int num2=stack.pop();
+        if(s.equals("+")){
+            stack.push(num2+num1);
+        }else if(s.equals("-")){
+            stack.push(num2-num1);
+        }else if(s.equals("/")){
+            stack.push(num2/num1);
+        }else if(s.equals("*")){
+            stack.push(num2*num1);
+        }
     }
 }

@@ -8,14 +8,23 @@ class TreeNode {
     TreeNode(int x) { val = x; }
 }
 
-public class Solution {
+class Solution {
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        if(root==null)return null;
-        if(root.val==p.val || root.val==q.val)return root;
+        if(root==null||p==root||q==root){
+            return root;
+        }
+
         TreeNode left=lowestCommonAncestor(root.left,p,q);
         TreeNode right=lowestCommonAncestor(root.right,p,q);
-        if(left!=null&&right!=null)return root;
-        if(left==null)return right;
-        else return left;
+
+        if(left==null&&right==null){
+            return null;
+        }else if(left==null&&right!=null){
+            return right;
+        }else if(left!=null&&right==null){
+            return left;
+        }else{
+            return root;
+        }
     }
 }

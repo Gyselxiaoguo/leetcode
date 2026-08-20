@@ -9,9 +9,9 @@ class Solution {
      * @param wordDict
      * @return
      */
-    private Boolean[] memo;
+    private Boolean[] used; //标记从此处是否可继续向后遍历
     public boolean wordBreak(String s, List<String> wordDict) {
-        memo=new Boolean[s.length()];
+        used =new Boolean[s.length()];
         return backtrack(s,wordDict,0);
     }
     // 决策树递归函数
@@ -22,8 +22,8 @@ class Solution {
         }
 
         // 剪枝：如果这个位置算过了，直接返回结果，不再递归！
-        if (memo[start] != null) {
-            return memo[start];
+        if (used[start] != null) {
+            return used[start];
         }
 
         // 遍历所有单词 → 每一个单词都是一个决策分支
@@ -39,12 +39,12 @@ class Solution {
             // 如果当前子串匹配单词，就递归下一层
             if(s.substring(start,end).equals(word)){
                 if(backtrack(s,wordDict,end)){
-                    memo[start] = true;
+                    used[start] = true;
                     return true;
                 }
             }
         }
-        memo[start] = false;
+        used[start] = false;
         // 所有分支都试过，不行
         return false;
     }

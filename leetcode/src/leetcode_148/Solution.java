@@ -10,6 +10,9 @@ class ListNode {
     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
 }
 
+/**
+ * 归并排序
+ */
 class Solution {
     public ListNode sortList(ListNode head) {
         if(head==null || head.next==null)return head;
@@ -24,6 +27,7 @@ class Solution {
         return mergeTwoSortedLists(left, right);
     }
 
+    //排序
     private ListNode mergeTwoSortedLists(ListNode left, ListNode right) {
         ListNode dummy=new ListNode(-1);
         ListNode curr = dummy;
@@ -41,6 +45,7 @@ class Solution {
         return dummy.next;
     }
 
+    //找中间节点，方便做拆分
     private ListNode findMiddle(ListNode head) {
         if(head==null || head.next==null)return head;
         ListNode fast=head.next;

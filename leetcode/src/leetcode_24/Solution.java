@@ -1,6 +1,8 @@
 package leetcode_24;
 
 
+import java.util.List;
+
 class ListNode {
     int val;
     ListNode next;
@@ -11,20 +13,29 @@ class ListNode {
 
 class Solution {
     public ListNode swapPairs(ListNode head) {
-        ListNode dummy =new ListNode(0,head);
-        ListNode pre=dummy;
-        ListNode first=pre.next;
-        ListNode second=null;
-        while (first!=null && first.next!=null){
-            second=first.next;
-            ListNode nxt=second.next;
+        ListNode dummy=new ListNode(0);
+        dummy.next=head;
+        ListNode preGroup=dummy;
+        int groupSize=2;
 
-            pre.next=second;
-            second.next=first;
-            first.next=nxt;
-            pre=first;
-            first=nxt;
+        while (true){
+            ListNode check=preGroup;
+            for (int i = 0; i < groupSize; i++) {
+                check=check.next;
+                if(check==null){
+                    return dummy.next;
+                }
+            }
+
+            ListNode pre=preGroup;
+            ListNode cur=pre.next;
+            for (int i = 1; i < groupSize; i++) {
+                ListNode next=cur.next;
+                cur.next=next.next;
+                next.next=pre.next;
+                pre.next=next;
+            }
+            preGroup=cur;
         }
-        return dummy.next;
     }
 }

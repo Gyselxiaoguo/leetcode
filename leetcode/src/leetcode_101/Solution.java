@@ -24,8 +24,12 @@ class Solution {
         return check(root.left,root.right);
     }
     private boolean check(TreeNode leftTree,TreeNode rightTree){
-        if(leftTree==null && rightTree==null)return true;
-        if (leftTree==null || rightTree==null || leftTree.val!=rightTree.val)return false;
+        if(leftTree==null && rightTree==null){
+            return true;
+        }
+        if (leftTree==null || rightTree==null || leftTree.val!=rightTree.val){
+            return false;
+        }
         return check(leftTree.left,rightTree.right)&&check(leftTree.right,rightTree.left);
     }
 }

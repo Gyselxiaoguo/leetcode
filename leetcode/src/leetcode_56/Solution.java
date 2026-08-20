@@ -7,29 +7,23 @@ import java.util.List;
 
 class Solution {
     public int[][] merge(int[][] intervals) {
-
-        int len=intervals.length;
-        //根据左边界值进行升序排序
-        Arrays.sort(intervals, new Comparator<int[]>() {
-            @Override
-            public int compare(int[] o1, int[] o2) {
-                return o1[0]-o2[0];
-            }
-        });
-
+        Arrays.sort(intervals,(a,b)->Integer.compare(a[0],b[0]));//按照左区间升序排序
+        int axis1=intervals[0][0];
+        int axis2=intervals[0][1];
         List<int[]> list=new ArrayList<>();
-        for (int i = 0; i < len; i++) {
+        for(int i=1;i<intervals.length;i++){
             int left=intervals[i][0];
             int right=intervals[i][1];
-            //无交集
-            if(list.size()==0 || left>list.get(list.size()-1)[1]){
-                list.add(new int[]{left,right});
-            }
-            //有交集
-            if(left<=list.get(list.size()-1)[1] || right<=list.get(list.size()-1)[1]){
-                list.get(list.size()-1)[1]=Math.max(right,list.get(list.size()-1)[1]);
+
+            if(left<=axis2){
+                axis2=Math.max(right,axis2);    //有区间取最大
+            }else{
+                list.add(new int[]{axis1,axis2});
+                axis1=left;
+                axis2=right;
             }
         }
+        list.add(new int[]{axis1,axis2});
         return list.toArray(new int[list.size()][]);
     }
 }

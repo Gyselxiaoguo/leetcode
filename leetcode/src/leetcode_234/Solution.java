@@ -35,22 +35,19 @@ class Solution {
         ListNode mid=slow;
 
         //判断左边是否=右边的逆序
-        ListNode left=head;
-        ListNode right=reverse(mid.next);
-        return isEqual(left, right);
+        reverse(mid);
+        return isEqual(head, mid.next);
     }
     //反转链表
-    private ListNode reverse(ListNode head){
-        ListNode pre=null;
-        ListNode cur=head;
-        ListNode next;
-        while (cur!=null){
-            next=cur.next;
-            cur.next=pre;
-            pre=cur;
-            cur=next;
+    private void reverse(ListNode dummy){
+        ListNode pre=dummy;
+        ListNode cur=dummy.next;
+        while(cur.next!=null){
+            ListNode next=cur.next;
+            cur.next=next.next;
+            next.next=pre.next;
+            pre.next=next;
         }
-        return pre;
     }
     //判断左右链表是否相同
     private boolean isEqual(ListNode left,ListNode right){

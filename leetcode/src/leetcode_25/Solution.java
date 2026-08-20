@@ -13,7 +13,6 @@ class ListNode {
 
 
 //k个一组反转链表，不够分为一组的保持不变
-/*
 class Solution {
     public ListNode reverseKGroup(ListNode head, int k) {
         if(head==null||head.next==null){
@@ -44,10 +43,11 @@ class Solution {
             preGroup=cur;
         }
     }
-}*/
+}
 
 
 //k个一组反转链表，不够分为一组的仍然翻转  (字节跳动面试题）
+/*
 class Solution {
     public ListNode reverseKGroup(ListNode head, int k) {
         if(head==null||head.next==null){
@@ -77,4 +77,4 @@ class Solution {
         }
         return dummy.next;
     }
-}
+}*/

@@ -4,31 +4,18 @@ import java.util.*;
 
 class Solution {
     public int[] topKFrequent(int[] nums, int k) {
-        //1.定义一个HashMap，他不会自动排序
         Map<Integer,Integer> map=new HashMap<>();
-        //2.遍历，key:数字，value：数量
-        for (int num : nums) {
-            if(map.get(num)==null){
-                //第一次出现
-                map.put(num,1);
-            }else {
-                map.put(num,map.get(num)+1);
-            }
+        for(int num:nums){
+            map.put(num,map.getOrDefault(num,0)+1);
         }
-        //3.按值排序
 
-        List<Map.Entry<Integer,Integer>> list=new ArrayList<>(map.entrySet());
-        list.sort(new Comparator<Map.Entry<Integer, Integer>>() {
-            @Override
-            public int compare(Map.Entry<Integer, Integer> o1, Map.Entry<Integer, Integer> o2) {
-                return o2.getValue()-o1.getValue();
-            }
-        });
-        //4.返回前k个键的值
-        int[] newNums=new int[k];
-        for (int i = 0; i < k; i++) {
-            newNums[i]=list.get(i).getKey();
-        }
-        return newNums;
+        int[] res=map.entrySet().stream()
+                .sorted((a,b)->b.getValue()-a.getValue())   //可以按键/值 升序/降序 排序
+                .limit(k)   //仅要前k个
+                .map(entry->entry.getKey()) //仅要key
+                .mapToInt(Integer::intValue)    //Integer->int
+                .toArray();
+
+        return res;
     }
 }

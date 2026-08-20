@@ -4,52 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-
-
 class Solution {
-    public String minWindow(String s, String t) {
-        Map<Character,Integer> tMap=new HashMap<>();
-        for(char c:t.toCharArray()){
-            tMap.put(c,tMap.getOrDefault(c,0)+1);
-        }
-        int valid=tMap.size();
-
-        Map<Character,Integer> winMap=new HashMap<>();
-        int minLen=Integer.MAX_VALUE;   //最短长度
-        int minStart=0; //最短长度的起始位置
-        int start=0;    //窗口的起始位置
-        int count=0;
-
-        for(int r=0;r<s.length();r++){
-            char ch=s.charAt(r);
-            if(tMap.containsKey(ch)){
-                winMap.put(ch,winMap.getOrDefault(ch,0)+1);
-                if(winMap.get(ch).equals(tMap.get(ch))){    //判断是否有字符数量达标
-                    count++;
-                }
-            }
-            while(count==valid){
-                if(r-start+1<minLen){    //尝试更新覆盖t的最小窗口长度
-                    minStart=start;
-                    minLen=r-start+1;
-                }
-
-                char c=s.charAt(start);
-                if(winMap.containsKey(c)){
-                    winMap.put(c,winMap.get(c)-1);
-                    if(winMap.get(c)<tMap.get(c)){
-                        count--;
-                    }
-                }
-                start++;
-            }
-        }
-        return minLen==Integer.MAX_VALUE?"":s.substring(minStart,minStart+minLen);
-    }
-}
-
-
-/*class Solution {
     public String minWindow(String s, String t) {
         if(s.length()==0||s.length()<t.length()){
             return "";
@@ -69,7 +24,6 @@ class Solution {
         Map<Character,Integer> win=new HashMap<>();
         int minStart=0;
         int minLen=Integer.MAX_VALUE;
-
         int left=0;
         int right=0;
 
@@ -103,4 +57,4 @@ class Solution {
         }
         return minLen==Integer.MAX_VALUE?"":s.substring(minStart,minStart+minLen);
     }
-}*/
+}

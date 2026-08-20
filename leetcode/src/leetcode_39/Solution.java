@@ -6,27 +6,29 @@ import java.util.Arrays;
 import java.util.List;
 
 class Solution {
-    private int[] myCandidates;
     List<List<Integer>> res=new ArrayList<>();
-
+    List<Integer> path=new ArrayList<>();
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
-        myCandidates=candidates;
-        Arrays.sort(myCandidates);
-        backTrack(0,target,new ArrayDeque<Integer>());
+        Arrays.sort(candidates);
+        backtracking(candidates,target,0);
         return res;
     }
 
-    private void backTrack(int idx, int target, ArrayDeque<Integer> path) {
+    private void backtracking(int[] candidates, int target,int start){
         if(target==0){
             res.add(new ArrayList<>(path));
             return;
         }
-        for (int i = idx; i < myCandidates.length; i++) {
-            int can=myCandidates[i];
-            if(can>target)return;
-            path.add(can);
-            backTrack(i,target-can,path);
-            path.removeLast();
+
+        for(int i=start;i<candidates.length;i++){
+            int num=candidates[i];
+            if(num>target){
+                return;
+            }
+            path.add(num);
+            backtracking(candidates,target-num,i);  //可重复使用
+            path.remove(path.size()-1);
         }
+
     }
 }

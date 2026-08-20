@@ -7,17 +7,14 @@ class Solution {
      * @return
      */
     public int numSquares(int n) {
-        //数组的初始化
-        int[] dp = new int[n+1];
+        int[] dp=new int[n+1];
         dp[0]=0;
-        for (int i = 1; i <= n; i++) {
+        for(int i=1;i<=n;i++){
             dp[i]=n+1;
         }
-        //正式开始
-        for(int num=1;num*num<=n;num++){
-            int square=num*num;
-            for (int j = square; j<=n; j++) {
-                dp[j]=Math.min(dp[j],dp[j-square]+1);
+        for(int i=1;i*i<=n;i++){
+            for(int j=i*i;j<=n;j++){
+                dp[j]=Math.min(dp[j],dp[j-i*i]+1);
             }
         }
         return dp[n];
