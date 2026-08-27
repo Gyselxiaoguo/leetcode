@@ -4,28 +4,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 class Solution {
-    /*括号生成*/
     List<String> res=new ArrayList<>();
+    StringBuilder sb=new StringBuilder();
     public List<String> generateParenthesis(int n) {
-        dfs(n,n,"");
+        backTracking(n,n,sb);
         return res;
     }
-
     /**
-     * @param left:左括号的数量
-     * @param right：右括号的数量
-     * @param curStr
+     left：剩余还可以用的左括号数量，初始n个
+     right：剩余还可以用的右括号数量，初始n个
      */
-    private void dfs(int left,int right,String curStr){
+    private void backTracking(int left,int right,StringBuilder sb){
         if(left==0&&right==0){
-            res.add(curStr);
+            res.add(sb.toString());
             return;
         }
+        // left>0：还有剩下的左括号就可以选左括号
         if(left>0){
-            dfs(left-1,right,curStr+'(');
+            sb.append('(');
+            backTracking(left-1,right,sb);
+            sb.deleteCharAt(sb.length()-1);
         }
-        if(right>left){
-            dfs(left,right-1,curStr+')');
+        // left < right：剩余左括号 < 剩余右括号
+        // 等价于：已经用掉的左括号 > 已经用掉的右括号
+        // 此时才能放右括号，否则会出现非法括号如 ())
+        if(left<right){
+            sb.append(')');
+            backTracking(left,right-1,sb);
+            sb.deleteCharAt(sb.length()-1);
         }
     }
 }

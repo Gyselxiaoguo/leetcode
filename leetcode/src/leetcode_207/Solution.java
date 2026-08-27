@@ -22,7 +22,10 @@ class Solution {
             //节点的前驱个数+1
             map.put(course,map.get(course)+1);
             //构建邻接关系
-            adj.computeIfAbsent(condition,k->new ArrayList<>()).add(course);
+            if(!adj.containsKey(condition)){
+                adj.put(condition,new ArrayList<>());
+            }
+            adj.get(condition).add(course);
         }
         // 2. 收集map中入度为0的节点
         for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
@@ -40,8 +43,7 @@ class Solution {
             }
             for (Integer nextCourse : adj.get(cur)) {
                 // 节点永远存在map，不会null
-                int newIn = map.get(nextCourse) - 1;
-                map.put(nextCourse, newIn);
+                map.put(nextCourse, map.get(nextCourse) - 1);
                 // 减完入度为0，入队、计数+1、从map移除
                 if(map.get(nextCourse)==0){
                     queue.offer(nextCourse);

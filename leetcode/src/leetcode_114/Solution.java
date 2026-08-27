@@ -19,21 +19,18 @@ class TreeNode {
 
 class Solution {
     public void flatten(TreeNode root) {
-        // 处理空树的边界情况
-        if (root == null) {
-            return;
-        }
+
         List<Integer> list = new ArrayList<>();
         traverse(root,list);
-        TreeNode p=root;
-        // 第一步：清空根节点的左节点（核心！）
-        p.left = null;
-        for (int i = 1; i < list.size(); i++) {
-            p.right=new TreeNode(list.get(i));
-            // 第二步：清空新节点的左节点（防御性操作）
-            p.right.left = null;
-            p=p.right;
+        int size=list.size();
+        if(size<=1){
+            return;
+        }
 
+        for(int i=1;i<size;i++){
+            root.left=null;
+            root.right=new TreeNode(list.get(i));
+            root=root.right;
         }
     }
     //先序遍历

@@ -3,7 +3,7 @@ package leetcode_79;
 class Solution {
     char[][] myBoard;
     char[] myWord;
-    boolean res=false;
+    boolean res;
     int[][] move={{1,0},{0,-1},{-1,0},{0,1}};
 
     public boolean exist(char[][] board, String word) {
@@ -21,7 +21,7 @@ class Solution {
     }
     private void backtrack(int row,int col ,int index,boolean[][] visited){
         if(row<0||row>=myBoard.length||col<0||col>=myBoard[0].length
-                ||visited[row][col]||res||myBoard[row][col]!=myWord[index]){
+                ||visited[row][col]||myBoard[row][col]!=myWord[index]){
             return;
         }
         if(index==myWord.length-1){

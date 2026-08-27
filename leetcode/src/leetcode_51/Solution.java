@@ -8,16 +8,17 @@ class Solution {
     /*
     * 按列尝试放置皇后，可以放置皇后的位置在map中标记为1
     * */
+    List<List<String>> result=new ArrayList<>();
     public List<List<String>> solveNQueens(int n) {
-        List<List<String>> result=new ArrayList<>();
+
         int[][] arr=new int[n][n];  //1->Q  0->.
-        findPos(arr,0,result);
+        findPos(arr,0);
         return result;
     }
 
-    private void findPos(int[][] arr, int y, List<List<String>> result) {
+    private void findPos(int[][] arr, int y) {
         if(y== arr.length){ //终止条件，这是将 1->Q  0->.
-            List<String> sol=new ArrayList<>();
+            List<String> path=new ArrayList<>();
             for (int[] ints : arr) {
                 StringBuilder sb = new StringBuilder();
                 for (int i = 0; i < arr.length; i++) {
@@ -27,16 +28,16 @@ class Solution {
                         sb.append("Q");
                     }
                 }
-                sol.add(sb.toString());
+                path.add(sb.toString());
             }
-            result.add(sol);
+            result.add(path);
             return;
         }
 
         for (int x = 0; x < arr.length; x++) {
             if(canUse(arr,x,y)){
                 arr[x][y]=1;
-                findPos(arr,y+1,result);
+                findPos(arr,y+1);
                 arr[x][y]=0;
             }
         }
