@@ -11,13 +11,12 @@ class Solution {
         int n = nums2.length;
         int left = 0;
         int right = m - 1; // 修改为 m-1
-        int totalLeft = (m + n + 1) / 2;
+        int totalLeft = (m + n + 1) / 2;    //左边元素个数，始终比右边多一个/相等
 
-        int i = 0;
         while (left <= right) {
             int mid =(right + left) / 2; // 新增mid，常规二分写法
             // mid是下标，i代表左侧元素数量 = mid + 1
-            i = mid + 1;
+            int i = mid + 1;
             int j = totalLeft - i;
 
             // nums1左段最后一个元素大于nums2右段第一个，需要左移
@@ -29,14 +28,14 @@ class Solution {
         }
 
         // 最终分割位置i就等于left
-        i = left;
+        int i = left;
         int j = totalLeft - i;
 
         // 边界处理，空一侧赋值无穷值
-        int left1 = i == 0 ? Integer.MIN_VALUE : nums1[i - 1];
-        int right1 = i == m ? Integer.MAX_VALUE : nums1[i];
-        int left2 = j == 0 ? Integer.MIN_VALUE : nums2[j - 1];
-        int right2 = j == n ? Integer.MAX_VALUE : nums2[j];
+        int left1 = i == 0 ? Integer.MIN_VALUE : nums1[i - 1];  //num1中，被划到左侧的左边界
+        int right1 = i == m ? Integer.MAX_VALUE : nums1[i]; //num1中，被划到右侧的右边界
+        int left2 = j == 0 ? Integer.MIN_VALUE : nums2[j - 1];  //num2中，被划到左侧的左边界
+        int right2 = j == n ? Integer.MAX_VALUE : nums2[j]; //num2中，被划到右侧的右边界
 
         // 奇数取左半边最大值；偶数取左最大与右最小的平均值
         if ((m + n) % 2 == 1) {
