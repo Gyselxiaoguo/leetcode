@@ -19,12 +19,10 @@ class TreeNode {
 
 class BSTIterator {
     List<Integer> list =new ArrayList<>();
-    int index=-1;
-    int length=0;
+    int idx=0;
 
     public BSTIterator(TreeNode root) {
         inorderTraversal(root);
-        length=list.size();
     }
 
     /**
@@ -44,20 +42,21 @@ class BSTIterator {
     }
 
     /**
-     * 指针右移，并返回当前指针处的数字
+     * 返回当前指针处的数字,指针右移
      * @return
      */
     public int next() {
-        index++;
-        return list.get(index);
+        int ans=list.get(idx);
+        idx++;
+        return ans;
     }
 
     /**
-     * 判断指针右侧是否有数字
+     * 判断当前指针是否有数字
      * @return
      */
     public boolean hasNext() {
-        return index+1<length;
+        return idx<list.size();
     }
 }
 

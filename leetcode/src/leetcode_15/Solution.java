@@ -24,9 +24,7 @@ class Solution {
                 }else if(nums[i]+nums[left]+nums[right]<0){
                     left++;
                 }else{
-                    List<Integer> list=new ArrayList<>();
-                    Collections.addAll(list,nums[i],nums[left],nums[right]);
-                    res.add(list);  //记录
+                    res.add(Arrays.asList(nums[i],nums[left],nums[right])); //记录
 
                     while(left<right&&nums[left]==nums[left+1]){    //去重
                         left++;

@@ -23,7 +23,7 @@ class Solution {
                 pos-=2;
             }else if(pos==-1){  //顶部越界
                 down=1;
-                pos=1;
+                pos+=2;
             }
         }
 

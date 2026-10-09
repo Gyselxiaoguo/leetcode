@@ -39,6 +39,20 @@ class Trie {
         }
         return cur.isEnd;
     }
+    /* search(String word) 函数实现的另一种方式：递归，与上面的循环非常相似
+    public boolean search(String word) {
+        return dfs(root,word,0);
+    }
+    private boolean dfs(TreeNode node,String s,int pos){
+        if(pos==s.length()){
+            return node.isEnd;
+        }
+        int idx=s.charAt(pos)-'a';
+        if(node.next[idx]==null){
+            return false;
+        }
+        return dfs(node.next[idx],s,pos+1);
+    }*/
 
     public boolean startsWith(String prefix) {
         TreeNode cur=root;

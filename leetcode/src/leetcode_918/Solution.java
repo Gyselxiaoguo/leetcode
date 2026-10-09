@@ -9,27 +9,22 @@ class Solution {
      * @return
      */
     public int maxSubarraySumCircular(int[] nums) {
-        int curMax=nums[0];
-        int globalMax=nums[0];
-        int curMin=nums[0];
-        int globalMin=nums[0];
-
-        for (int i = 1; i < nums.length; i++) {
-            curMax=Math.max(nums[i],curMax+nums[i]);
-            globalMax=Math.max(globalMax,curMax);
-
-            curMin=Math.min(nums[i],curMin+nums[i]);
-            globalMin=Math.min(globalMin,curMin);
+        int n=nums.length;
+        int[] curMax=new int[n];
+        int[] curMin=new int[n];
+        curMax[0]=nums[0];
+        curMin[0]=nums[0];
+        for(int i=1;i<nums.length;i++){
+            curMax[i]=Math.max(nums[i],curMax[i-1]+nums[i]);
+            curMin[i]=Math.min(nums[i],curMin[i-1]+nums[i]);
         }
+        int totalMax=Arrays.stream(curMax).max().orElse(Integer.MIN_VALUE);
+        int totalMin=Arrays.stream(curMin).min().orElse(Integer.MAX_VALUE);
+        int sum=Arrays.stream(nums).sum();
 
-        int sum= Arrays.stream(nums).sum();
-
-        //全为负数情况
-        if(sum==globalMin){
-            return globalMax;
+        if(sum==totalMin){  //全为负数
+            return totalMax;
         }
-
-        return Math.max(sum-globalMin,globalMax);
+        return Math.max(totalMax,sum-totalMin);//连续最大，总和-连续最小
     }
-
 }

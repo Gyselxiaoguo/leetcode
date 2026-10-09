@@ -13,29 +13,13 @@ class Solution {
         int i=0;
         int n = newS.length();
 
+        // 预防表达式开头的正负号，如 "-2+1" -> 补 0 变成 "0-2+1"
+        if (n > 0 && (newS.charAt(0) == '-' || newS.charAt(0) == '+')) {
+            numStack.push(0);
+        }
         while (i< n){
             char c = newS.charAt(i);
-            // 处理一元负号：开头- 或 (后-
-            if(c=='-'&&(i==0||newS.charAt(i-1)=='(')){
-                // 判断负号后是左括号 -(...)
-                if (i + 1 < n && newS.charAt(i+1) == '(') {
-                    // 等价于 0 - ( ... )
-                    numStack.push(0);
-                    opStack.push('-');
-                    i++; // 跳过'-'，下一轮处理'('
-                    continue;
-                }else {
-                    // 负号后是数字
-                    i++;
-                    int num=0;
-                    while (i<n&&Character.isDigit(newS.charAt(i))){
-                        num=num*10+(newS.charAt(i)-'0');
-                        i++;
-                    }
-                    numStack.push(-num);
-                    continue;
-                }
-            }
+
             if(Character.isDigit(c)){   //数字
                 int num=0;
                 while (i<n&&Character.isDigit(newS.charAt(i))){
@@ -46,6 +30,10 @@ class Solution {
             } else if (c=='(') {    //遇到‘（’
                 opStack.push(c);
                 i++;
+                // 如果括号后紧跟 '+' 或 '-'，如 "(-3)"，补一个 0 变成 "(0-3)"
+                if (i < n && (newS.charAt(i) == '+' || newS.charAt(i) == '-')) {
+                    numStack.push(0);
+                }
             } else if (c==')') {    //遇到‘）’,计算到左括号为止
                 while (opStack.peek()!='('){
                     calc(numStack,opStack);

@@ -20,25 +20,21 @@ class Solution {
         int[] lMaxProfit=new int[n];
         int[] rMaxProfit=new int[n];
 
-        int lMinBuy=Integer.MAX_VALUE;
-        int lGlobalMaxProfit=0;
-        for(int i=0;i<n;i++){   //第一次交易：0 ~ i，lProfit[i] = 从第 0 天到第 i 天，只做 1 次交易能获得的最大利润
-            int curSell=prices[i];
-            lMinBuy=Math.min(lMinBuy,curSell);
-            int curProfit=curSell-lMinBuy;
-            lGlobalMaxProfit=Math.max(lGlobalMaxProfit,curProfit);
-            lMaxProfit[i]=lGlobalMaxProfit;
+        int minBuy=prices[0];
+        lMaxProfit[0]=0;
+        for(int i=1;i<n;i++){   //第一次交易：0 ~ i，lProfit[i] = 从第 0 天到第 i 天，只做 1 次交易能获得的最大利润
+            int curProfit=prices[i]-minBuy;
+            lMaxProfit[i]=Math.max(lMaxProfit[i-1],curProfit);
+            minBuy=Math.min(minBuy,prices[i]);
         }
         System.out.println(Arrays.toString(lMaxProfit));
 
-        int rMaxSell=0;
-        int rGlobalMaxProfit=0;
-        for(int i=n-1;i>=0;i--){    // rProfit[i] = 从第 i 天到最后一天，只做 1 次交易能获得的最大利润
-            int curbuy=prices[i];
-            rMaxSell=Math.max(rMaxSell,curbuy);
-            int curProfit=rMaxSell-curbuy;
-            rGlobalMaxProfit=Math.max(rGlobalMaxProfit,curProfit);
-            rMaxProfit[i]=rGlobalMaxProfit;
+        int maxSell=prices[n-1];
+        rMaxProfit[n-1]=0;
+        for(int i=n-2;i>=0;i--){    // rProfit[i] = 从第 i 天到最后一天，只做 1 次交易能获得的最大利润
+            int curProfit=maxSell-prices[i];
+            rMaxProfit[i]=Math.max(rMaxProfit[i+1],curProfit);
+            maxSell=Math.max(maxSell,prices[i]);
         }
         System.out.println(Arrays.toString(rMaxProfit));
 

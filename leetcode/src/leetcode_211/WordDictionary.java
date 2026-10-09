@@ -31,27 +31,30 @@ class WordDictionary {
     }
     
     public boolean search(String word) {
-        return dfs(root,word);
+        return dfs(root,word,0);
     }
 
-    private boolean dfs(TreeNode node, String s) {
-        if(s.length()==0){
+    private boolean dfs(TreeNode node, String s,int pos) {
+        if(s.length()==pos){
             return node.isEnd;
         }
 
-        char c = s.charAt(0);
+        char c = s.charAt(pos);
         if(c!='.'){
-            if(node.next[c-'a']!=null&&dfs(node.next[c-'a'],s.substring(1))){
-                return true;
+            if(node.next[c-'a']==null){
+                return false;
             }
+            return dfs(node.next[c-'a'],s,pos+1);
         }else {
             for (int i = 0; i < 26; i++) {
-                if(node.next[i]!=null&&dfs(node.next[i],s.substring(1))){
+                if(node.next[i]==null){
+                    continue;
+                }
+                if(dfs(node.next[i],s,pos+1)){
                     return true;
                 }
             }
+            return false;
         }
-
-        return false;
     }
 }

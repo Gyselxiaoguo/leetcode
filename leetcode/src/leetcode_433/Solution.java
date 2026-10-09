@@ -15,7 +15,7 @@ class Solution {
         visited.add(startGene);
 
         int step = 0;
-        char[] base=new char[]{'A','C','G','T'};
+        char[] base={'A','C','G','T'};
 
         while (!queue.isEmpty()){
             int size = queue.size();

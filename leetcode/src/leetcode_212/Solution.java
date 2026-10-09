@@ -16,18 +16,21 @@ class TreeNode{
         next=new TreeNode[26];
     }
 }
+
 class Solution {
     TreeNode root;
     char[][] board;
     int[][] dirs = {{-1,0},{1,0},{0,-1},{0,1}};// 四个方向：上下左右
     List<String> list =new ArrayList<>();
+
     public List<String> findWords(char[][] board, String[] words) {
         this.board=board;
         root=new TreeNode();
-        int n = words.length;
+
         //words中所有字符建字典树
-        creatTree(words, n);
-        //遍历board中每个起点
+        creatTree(words);
+
+        // 遍历棋盘上每一个格子，作为dfs搜索的起点
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[0].length; j++) {
                 dfs(i,j,root,new StringBuilder());
@@ -69,14 +72,15 @@ class Solution {
         sb.deleteCharAt(sb.length()-1);
     }
 
-    private void creatTree(String[] words, int n) {
-        for (int i = 0; i < n; i++) {
+    private void creatTree(String[] words) {
+        for (int i = 0; i < words.length; i++) {
             TreeNode cur=root;
             for (int j = 0; j < words[i].length(); j++) {
-                if (cur.next[words[i].charAt(j) - 'a'] == null) {
-                    cur.next[words[i].charAt(j) - 'a'] = new TreeNode();
+                int idx=words[i].charAt(j) - 'a';
+                if (cur.next[idx] == null) {
+                    cur.next[idx] = new TreeNode();
                 }
-                cur = cur.next[words[i].charAt(j) - 'a'];
+                cur = cur.next[idx];
             }
             cur.isEnd = true;
         }

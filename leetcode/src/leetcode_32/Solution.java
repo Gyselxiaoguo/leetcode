@@ -2,6 +2,9 @@ package leetcode_32;
 
 import java.util.Stack;
 
+/**
+ * 把有效括号位置进行标记，最后统计下
+ */
 class Solution {
     public int longestValidParentheses(String s) {
         int n = s.length();

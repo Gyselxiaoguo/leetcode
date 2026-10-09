@@ -11,6 +11,8 @@ public class MapTraversalExample {
         map.put("key1", 1);
         map.put("key2", 2);
         map.put("key3", 3);
+        Integer remove = map.remove(1);
+
 
     }
 }

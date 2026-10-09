@@ -17,8 +17,7 @@ class Solution {
         int[][] newBoard=new int[rows][cols];
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
-                int flag = arbitration(i,j,board[i][j],board);
-                newBoard[i][j]=flag;
+                newBoard[i][j]=backtracking(board,i,j);
             }
         }
         // 逐行拷贝覆盖原数组，不能直接board = newBoard
@@ -28,28 +27,22 @@ class Solution {
     }
 
     //判断下一个状态
-    private int arbitration(int x,int y,int cur, int[][] board) {
-        //当前位置周围1的数量
-        int count=0;
-        for (int[] dir : dirs) {
-            int m = dir[0] + x;
-            int n = dir[1] + y;
-            if (m < 0 || m >= board.length || n < 0 || n >= board[0].length) {
+    private int backtracking(int[][] board,int i,int j){
+        int live=0;
+        for(int[] dir:dirs){
+            int x=i+dir[0];
+            int y=j+dir[1];
+            if(x<0||y<0||x>=board.length||y>=board[0].length){
                 continue;
             }
-            if (board[m][n] == 1) {
-                count++;
+            if(board[x][y]==1){
+                live++;
             }
         }
-
-        if(cur==1&&(count<2||count>3)){ //活细胞死亡
-            return 0;
-        }else if(cur==1){ //活细胞仍然存活
-            return 1;
-        }else if(cur==0&&count==3){ //死细胞复活
-            return 1;
+        if(board[i][j]==1){
+            return live<2||live>3?0:1;
+        }else{
+            return live==3?1:0;
         }
-        return 0;
     }
-
 }

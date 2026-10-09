@@ -1,19 +1,20 @@
 package leetcode_12;
 
 class Solution {
+    private final String[] sigals={"M","CM","D","CD","C","XC","L","XL","X","IX","V","IV","I"};
     private final int[] nums={1000,900,500,400,100,90,50,40,10,9,5,4,1};
-    private final String[] romanStr = {"M","CM","D","CD","C","XC","L","XL","X","IX","V","IV","I"};
+    StringBuilder res=new StringBuilder();
     public String intToRoman(int num) {
-        StringBuilder sb = new StringBuilder();
-        int index=0;
-        while (num>0){
-            if(num-nums[index]>=0){
-                num-=nums[index];
-                sb.append(romanStr[index]);
-            }else {
-                index++;
+        int idx=0;
+        while(num>0){
+            if(num-nums[idx]>=0){
+                num-=nums[idx];
+                res.append(sigals[idx]);
+            }else{
+                idx++;
             }
+
         }
-        return sb.toString();
+        return res.toString();
     }
 }

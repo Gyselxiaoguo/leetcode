@@ -10,13 +10,10 @@ class ListNode {
 
 class Solution {
     public ListNode deleteDuplicates(ListNode head) {
-        if(head==null||head.next==null){    //无节点/仅有一个节点
-            return head;
-        }
+
 
         ListNode dummy=new ListNode(-1);
         dummy.next=head;
-
 
         ListNode pre=dummy;
         ListNode cur=pre.next;

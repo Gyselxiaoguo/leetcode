@@ -3,64 +3,26 @@ package leetcode_373;
 import java.util.*;
 
 class Solution {
+    public List<List<Integer>> kSmallestPairs(int[] nums1, int[] nums2, int k) {
+        List<List<Integer>> res=new ArrayList<>();
+        //数组a中存放了num1和num2的索引。这是个小根堆
+        PriorityQueue<int[]> deap=new PriorityQueue<>((a,b)->
+                (nums1[a[0]]+nums2[a[1]])-(nums1[b[0]]+nums2[b[1]]));
+        //num1中的每个元素均与num2中的第一个元素的索引结合
+        for(int i=0;i<nums1.length;i++){
+            deap.add(new int[]{i,0});
+        }
 
-public List<List<Integer>> kSmallestPairs(int[] nums1, int[] nums2, int k) {
-    int m = nums1.length;
-    int n = nums2.length;
-    List<List<Integer>> res = new ArrayList<>();
-    // 边界：任一数组为空直接返回空集合
-    if (m == 0 || n == 0) {
+        while(k>0&&!deap.isEmpty()){
+            int[] pos=deap.poll();
+            int i=pos[0];
+            int j=pos[1];
+            res.add(List.of(nums1[i],nums2[j]));
+            if(j+1<nums2.length){
+                deap.add(new int[]{i,j+1});
+            }
+            k--;
+        }
         return res;
     }
-
-    // 标记下标(i,j)是否已经加入堆，防止重复入队
-    Set<String> visited = new HashSet<>();
-    // 最小堆：比较规则为 nums1[a.i]+nums2[a.j] 减去 nums1[b.i]+nums2[b.j]
-    PriorityQueue<Cell> heap = new PriorityQueue<>((a, b) ->
-            (nums1[a.i] + nums2[a.j]) - (nums1[b.i] + nums2[b.j])
-    );
-    heap.offer(new Cell(0,0));
-    visited.add("0,0");
-
-    //循环k次最小值
-    while (k>0&&!heap.isEmpty()){
-        Cell top = heap.poll();
-        res.add(Arrays.asList(nums1[top.i],nums2[top.j]));  //将当前最小值加入结果
-
-        //下一个候选：（i+1,j)
-        Cell nei=new Cell(top.i+1,top.j);
-        int ni = top.i + 1;
-        int nj = top.j;
-        String key = ni + "," + nj;
-        if(nei.i<m&&!visited.contains(key)){
-            visited.add(key);
-            heap.offer(nei);
-        }
-
-        //下一个候选：（i,j+1)
-        nei=new Cell(top.i,top.j+1);
-        ni = top.i ;
-        nj = top.j+1;
-        key = ni + "," + nj;
-        if(nei.j<n&&!visited.contains(key)){
-            visited.add(key);
-            heap.offer(nei);
-        }
-
-        k--;
-    }
-    return res;
 }
-// 内部类：存储下标i,j
-static class Cell {
-    int i, j;
-    Cell(int i, int j) {
-        this.i = i;
-        this.j = j;
-    }
-}
-
-
-}
-
-

@@ -23,6 +23,7 @@ class Solution {
             }else{
                 sum=value1+value2;
             }
+
             isCarry=sum>=10;
             cur.next=new ListNode(sum%10);
             cur=cur.next;

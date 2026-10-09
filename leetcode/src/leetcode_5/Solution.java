@@ -5,7 +5,7 @@ class Solution {
         int maxLen=0;
         int start=0;
         for (int i = 0; i < s.length(); i++) {
-            //babad
+            //babad 奇数长度回文
             int left=i;
             int right=i;
             while (left>=0&&right<s.length()&&s.charAt(left)==s.charAt(right)){
@@ -16,7 +16,7 @@ class Solution {
                 left--;
                 right++;
             }
-            //baab
+            //baab  偶数长度回文
             left=i;
             right=i+1;
             while (left>=0&&right<s.length()&&s.charAt(left)==s.charAt(right)){

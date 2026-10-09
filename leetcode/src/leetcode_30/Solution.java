@@ -12,12 +12,11 @@ class Solution {
             return res;
         }
 
-        Map<String,Integer> wordCount=new HashMap<>();
-        int wordTotal = words.length;   //待匹配单词个数
-        int wordLen = words[0].length();    //每个待匹配单词长度
-        for (String word : words) {
-            wordCount.put(word,wordCount.getOrDefault(word,0)+1);   //记录每种待匹配单词的个数
+        Map<String,Integer> map=new HashMap<>();
+        for(String word:words){
+            map.put(word,map.getOrDefault(word,0)+1);
         }
+        int wordLen=words[0].length();
 
         // 遍历所有起始偏移 0 ~ wordLen-1
         /**
@@ -37,24 +36,28 @@ class Solution {
                 right+=wordLen;
 
                 // 单词不在目标列表，窗口直接作废
-                if(!wordCount.containsKey(curWord)){
+                if(!map.containsKey(curWord)){
                     left=right;
                     valid=0;
                     window.clear();
                 }else {
                     window.put(curWord,window.getOrDefault(curWord,0)+1);
-                    valid++;
+                    if(map.get(curWord).equals(window.get(curWord))){
+                        valid++;
+                    }
 
                     // 当前单词数量超出需求，收缩左边界
-                    while (window.get(curWord) > wordCount.get(curWord)) {
+                    while (window.get(curWord) > map.get(curWord)) {
                         String leftWord = s.substring(left, left + wordLen);
+                        if(window.get(leftWord).equals(map.get(leftWord))){
+                            valid--;
+                        }
                         window.put(leftWord, window.get(leftWord) - 1); //窗口种相应种类的单词数-1
-                        valid--;
                         left += wordLen;
                     }
 
                     // 凑齐全部单词，记录起始位置
-                    if(valid==wordTotal){
+                    if(valid==map.size()){
                         res.add(left);
                     }
                 }

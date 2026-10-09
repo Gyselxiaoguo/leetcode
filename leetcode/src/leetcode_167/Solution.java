@@ -4,19 +4,18 @@ import java.util.List;
 
 class Solution {
     public int[] twoSum(int[] numbers, int target) {
-        int left=0;
-        int right=numbers.length-1;
-        int[] res=new int[2];
-        while (right>left){
-            if(numbers[left]+numbers[right]==target){
-                res= new int[]{left+1,right+1};
-                break;
-            }else if(numbers[left]+numbers[right]>target){
-                right--;
-            }else {
-                left++;
+        int l=0;
+        int r=numbers.length-1;
+        while(l<r){
+            int sum=numbers[l]+numbers[r];
+            if(sum>target){
+                r--;
+            }else if(sum<target){
+                l++;
+            }else{
+                return new int[]{l+1,r+1};
             }
         }
-        return res;
+        return new int[]{-1,-1};
     }
 }

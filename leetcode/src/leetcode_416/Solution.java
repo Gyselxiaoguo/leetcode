@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 /**
  *  01背包的应用
+ *  容量为target，可选物品体积为nums中的元素
  */
 class Solution {
     public boolean canPartition(int[] nums) {
@@ -14,6 +15,7 @@ class Solution {
 
         int target=sum/2;
         int n=nums.length;
+        //从前 `0~i` 号物品（nums [0] 到 nums [i]）里面选，背包容量为`j`时，能够装下的**最大元素和
         int[][] dp=new int[n][target+1];
         for(int i=0;i<n;i++){
             dp[i][0]=0;

@@ -7,7 +7,7 @@ class Solution {
      * @return
      */
     public int numSquares(int n) {
-        int[] dp=new int[n+1];
+        int[] dp=new int[n+1];  //数字i 最少由多少个完全平方数相加得到
         dp[0]=0;
         for(int i=1;i<=n;i++){
             dp[i]=n+1;

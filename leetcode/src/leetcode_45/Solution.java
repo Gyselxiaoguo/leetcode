@@ -5,7 +5,7 @@ class Solution {
         int ans=0;
         int maxpos=0;
         int end=0;
-        for (int i = 0; i < nums.length-1; i++) {
+        for (int i = 0; i < nums.length-1; i++) {// i只遍历到 n-2，不需要走到最后一个元素；站在最后元素就已经结束
             maxpos = Math.max(nums[i] + i, maxpos);
             if(end==i){ //i == end：说明到达上一次跳跃的终点，必须再跳一步
                 ans++;

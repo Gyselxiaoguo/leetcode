@@ -18,27 +18,36 @@ class TreeNode {
 }
 
 class Solution {
-    List<Integer> list=new ArrayList<>();
     public int sumNumbers(TreeNode root) {
         if(root==null){
             return 0;
         }
-        dfs(root,0);
-
-        return list.stream().mapToInt(Integer::intValue).sum();
+        List<List<Integer>> lists=new ArrayList<>();
+        List<Integer> path=new ArrayList<>();
+        binaryTreePaths(root,lists,path);
+        int res=0;
+        for(List<Integer> list:lists){
+            int num=0;
+            for(int i=0;i<list.size();i++){
+                num=num*10+list.get(i);
+            }
+            res+=num;
+        }
+        return res;
     }
-
-
-    private void dfs(TreeNode root,int num){
-        num=num*10+root.val;
+    private void binaryTreePaths(TreeNode root,List<List<Integer>> lists,List<Integer> path){
+        path.add(root.val);
         if(root.left==null&&root.right==null){
-            list.add(num);
+            lists.add(new ArrayList<>(path));
+            return;
         }
         if(root.left!=null){
-            dfs(root.left, num);
+            binaryTreePaths(root.left,lists,path);
+            path.remove(path.size()-1);
         }
         if(root.right!=null){
-            dfs(root.right,num);
+            binaryTreePaths(root.right,lists,path);
+            path.remove(path.size()-1);
         }
     }
 }

@@ -14,9 +14,7 @@ class Solution {
                 }
                 sum+=nums[right];
             }else { //左指针右移，sum减小，元素减少
-                if(right-left<minLen){
-                    minLen=right-left;
-                }
+                minLen=Math.min(minLen,right-left);
                 left++;
                 if(left>right){
                     break;

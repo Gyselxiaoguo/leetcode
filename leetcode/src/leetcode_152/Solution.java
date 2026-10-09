@@ -1,5 +1,8 @@
 package leetcode_152;
 
+/**
+ * min，max
+ */
 class Solution {
     public int maxProduct(int[] nums) {
         int max_res=nums[0];
