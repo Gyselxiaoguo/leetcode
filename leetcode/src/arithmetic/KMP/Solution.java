@@ -7,9 +7,9 @@ import java.util.Arrays;
  */
 class Solution {
     public int strStr(String haystack, String needle) {
-        int n = haystack.length();  //匹配串
-        int m = needle.length();    //模板串
-        if(m==0){
+        int m = haystack.length();  //匹配串
+        int n = needle.length();    //模板串
+        if(n==0){
             return 0;
         }
 
@@ -17,8 +17,10 @@ class Solution {
         int i = 0; // 主串指针
         int j = 0; // 模式串指针
 
-        while (i<n){
-            if (j == m) break;
+        while (i<m){
+            if (j == n) {
+                return i - n;
+            }
             if(haystack.charAt(i)==needle.charAt(j)){
                 i++;
                 j++;
@@ -30,8 +32,8 @@ class Solution {
             }
         }
         // 循环结束后判断是否完整匹配
-        if (j == m) {
-            return i - j;
+        if (j == n) {
+            return i - n;
         }
         return -1;
     }

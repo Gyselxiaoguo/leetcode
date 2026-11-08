@@ -21,11 +21,11 @@ class WordDictionary {
     public void addWord(String word) {
         TreeNode cur=root;
         for (int i = 0; i < word.length(); i++) {
-            int index=word.charAt(i)-'a';   //0-25对应a-z
-            if(cur.next[index]==null){  //第一次出现，为其创建下一个节点，同时也标志这该节点已被使用
-                cur.next[index]=new TreeNode();
+            int idx=word.charAt(i)-'a';   //0-25对应a-z
+            if(cur.next[idx]==null){  //第一次出现，为其创建下一个节点，同时也标志这该节点已被使用
+                cur.next[idx]=new TreeNode();
             }
-            cur=cur.next[index];    //cur移动到下一个TreeNode
+            cur=cur.next[idx];    //cur移动到下一个TreeNode
         }
         cur.isEnd=true; //标记此处为一个终点
     }
@@ -34,27 +34,27 @@ class WordDictionary {
         return dfs(root,word,0);
     }
 
-    private boolean dfs(TreeNode node, String s,int pos) {
-        if(s.length()==pos){
-            return node.isEnd;
+    private boolean dfs(TreeNode cur, String s,int start) {
+        if(s.length()==start){
+            return cur.isEnd;
         }
 
-        char c = s.charAt(pos);
+        char c = s.charAt(start);
         if(c!='.'){
-            if(node.next[c-'a']==null){
+            if(cur.next[c-'a']==null){
                 return false;
             }
-            return dfs(node.next[c-'a'],s,pos+1);
+            return dfs(cur.next[c-'a'],s,start+1);
         }else {
             for (int i = 0; i < 26; i++) {
-                if(node.next[i]==null){
+                if(cur.next[i]==null){
                     continue;
                 }
-                if(dfs(node.next[i],s,pos+1)){
-                    return true;
+                if(dfs(cur.next[i],s,start+1)){
+                    return true;    //选这个字母分支是可行的，整条搜索成功，直接 return true，不用再试别的字母了。
                 }
             }
-            return false;
+            return false;   // 26个分支全都试完，没有一条能匹配，返回false
         }
     }
 }

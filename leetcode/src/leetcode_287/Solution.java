@@ -5,12 +5,12 @@ import java.util.Set;
 
 class Solution {
     public int findDuplicate(int[] nums) {
-        Set<Integer> list=new HashSet<>();
+        Set<Integer> set=new HashSet<>();
         for (int num : nums) {
-            if(!list.add(num)){
-                return num;
+            if(set.add(num)){
+                continue;
             }else{
-                list.add(num);
+                return num;
             }
         }
         return -1;

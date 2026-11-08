@@ -19,7 +19,7 @@ class TreeNode {
 
 class BSTIterator {
     List<Integer> list =new ArrayList<>();
-    int idx=0;
+    int idx=-1;
 
     public BSTIterator(TreeNode root) {
         inorderTraversal(root);
@@ -46,9 +46,8 @@ class BSTIterator {
      * @return
      */
     public int next() {
-        int ans=list.get(idx);
         idx++;
-        return ans;
+        return list.get(idx);
     }
 
     /**
@@ -56,7 +55,11 @@ class BSTIterator {
      * @return
      */
     public boolean hasNext() {
-        return idx<list.size();
+        if(idx+1<list.size()){
+            return true;
+        }else{
+            return false;
+        }
     }
 }
 

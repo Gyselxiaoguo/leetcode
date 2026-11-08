@@ -18,44 +18,37 @@ class TreeNode{
 }
 
 class Solution {
-    TreeNode root;
+    TreeNode root=new TreeNode();
     char[][] board;
     int[][] dirs = {{-1,0},{1,0},{0,-1},{0,1}};// 四个方向：上下左右
     List<String> list =new ArrayList<>();
 
     public List<String> findWords(char[][] board, String[] words) {
-        this.board=board;
-        root=new TreeNode();
-
         //words中所有字符建字典树
         creatTree(words);
 
         // 遍历棋盘上每一个格子，作为dfs搜索的起点
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[0].length; j++) {
-                dfs(i,j,root,new StringBuilder());
+                dfs(board,i,j,root,new StringBuilder());
             }
         }
         return list;
     }
 
-    private void dfs(int i, int j, TreeNode treeNode, StringBuilder sb) {
-        if(i<0||i>=board.length||j<0||j>=board[0].length){
+    private void dfs(char[][] board,int i, int j, TreeNode cur, StringBuilder sb) {
+        if(i<0||i>=board.length||j<0||j>=board[0].length||board[i][j]=='#'){
             return;
         }
 
         char c = board[i][j];
-        //# 代表访问过，跳过
-        if(c=='#'){
-            return;
-        }
         int idx=c-'a';
-        if(treeNode.next[idx]==null){   //剪枝
+        if(cur.next[idx]==null){   //剪枝
             return;
         }
 
         sb.append(c);
-        TreeNode nextNode = treeNode.next[idx]; // 走到下一层树节点
+        TreeNode nextNode = cur.next[idx]; // 走到下一层树节点
         // 找到完整单词
         if(nextNode.isEnd){
             list.add(sb.toString());
@@ -66,7 +59,7 @@ class Solution {
         for (int[] dir : dirs) {
             int x=i+dir[0];
             int y=j+dir[1];
-            dfs(x,y,nextNode,sb);
+            dfs(board,x,y,nextNode,sb);
         }
         board[i][j]=c;  //恢复
         sb.deleteCharAt(sb.length()-1);

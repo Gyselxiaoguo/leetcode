@@ -8,7 +8,7 @@ import java.util.stream.IntStream;
  */
 class Solution {
     public static void main(String[] args) {
-        System.out.println(maxProfit(new int[]{7, 1, 5, 3, 4, 6}));
+        System.out.println(maxProfit(new int[]{3,3,5,0,0,3,1,4}));
     }
 
     public static int maxProfit(int[] prices) {
@@ -17,8 +17,8 @@ class Solution {
             return 0;
         }
 
-        int[] lMaxProfit=new int[n];
-        int[] rMaxProfit=new int[n];
+        int[] lMaxProfit=new int[n];    //第一次交易：0 ~ i，最大利润
+        int[] rMaxProfit=new int[n];    //第二次交易：i ~ n,最大利润
 
         int minBuy=prices[0];
         lMaxProfit[0]=0;

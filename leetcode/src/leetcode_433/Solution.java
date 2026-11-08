@@ -19,7 +19,7 @@ class Solution {
 
         while (!queue.isEmpty()){
             int size = queue.size();
-            for (int i = 0; i < size; i++) {
+            for (int i = 0; i < size; i++) {    //BFS,遍历完一层，step++；
 
                 String cur = queue.poll();
                 if(cur.equals(endGene)){    // 到达终点
@@ -39,11 +39,11 @@ class Solution {
                             queue.offer(next);
                             visited.add(next);
                         }
+                        arr[j]=old; // 复原当前位置，换下一个
                     }
-                    arr[j]=old; //// 复原当前位置，换下一个
                 }
-
             }
+
             step++;
         }
         return -1;

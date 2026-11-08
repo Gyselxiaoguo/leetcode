@@ -14,7 +14,7 @@ class Solution {
             j=startY;
             // 遍历当前圈上边每条边元素
             for(j=startY;j<n-offset;j++){
-                int k=j-startY;
+                int k=j-startY; //偏移量
                 // 记录左上角临时值
                 int temp = matrix[i][j];
                 //左下->左上

@@ -26,7 +26,7 @@ class Solution {
                 return;
             }
             path.add(num);
-            backtracking(candidates,target-num,i);  //可重复使用
+            backtracking(candidates,target-num,i);  //下一层还可以继续选当前这个数
             path.remove(path.size()-1);
         }
 

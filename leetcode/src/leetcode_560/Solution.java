@@ -9,9 +9,9 @@ class Solution {
             preSum[i] = preSum[i - 1] + nums[i - 1];
         }
 
-        for(int i = 0; i < n;i++){
-            for(int j = i + 1; j <= n;j++){
-                if(preSum[j] - preSum[i] == k){
+        for(int i=0;i<preSum.length;i++){
+            for(int j=0;j<i;j++){
+                if(preSum[i]-preSum[j]==k){
                     res++;
                 }
             }

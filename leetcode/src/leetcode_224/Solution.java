@@ -13,12 +13,15 @@ class Solution {
         int i=0;
         int n = newS.length();
 
-        // 预防表达式开头的正负号，如 "-2+1" -> 补 0 变成 "0-2+1"
-        if (n > 0 && (newS.charAt(0) == '-' || newS.charAt(0) == '+')) {
-            numStack.push(0);
-        }
         while (i< n){
             char c = newS.charAt(i);
+            // 预防表达式开头的正负号，如 "-2+1" -> 补 0 变成 "0-2+1"
+            if(i==0&&(c=='+'||c=='-')){
+                numStack.push(0);
+                opStack.push(c);
+                i++;
+                continue;
+            }
 
             if(Character.isDigit(c)){   //数字
                 int num=0;

@@ -1,41 +1,35 @@
 package leetcode_79;
 
 class Solution {
-    char[][] myBoard;
-    char[] myWord;
-    boolean res;
-    int[][] move={{1,0},{0,-1},{-1,0},{0,1}};
-
+    int[][] dirs={{1,0},{-1,0},{0,1},{0,-1}};
+    boolean res=false;
     public boolean exist(char[][] board, String word) {
-        int row=board.length;
-        int col=board[0].length;
-        myBoard=board;
-        myWord=word.toCharArray();
-        boolean[][] visited=new boolean[row][col];
-        for (int i = 0; i < row; i++) {
-            for (int j = 0; j < col; j++) {
-                backtrack(i,j,0,visited);
+        int m=board.length;
+        int n=board[0].length;
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                search(board,i,j,word,0,new boolean[m][n]); // used：记录本次DFS路径中已经访问过的格子，每次起点都新建一个used
             }
         }
         return res;
     }
-    private void backtrack(int row,int col ,int index,boolean[][] visited){
-        if(row<0||row>=myBoard.length||col<0||col>=myBoard[0].length
-                ||visited[row][col]||myBoard[row][col]!=myWord[index]){
-            return;
-        }
-        if(index==myWord.length-1){
+    private void search(char[][] board,int i,int j,String word,int start,boolean[][] used){
+        if(start==word.length()){   // 递归终止：start走到单词末尾，说明全部匹配成功
             res=true;
             return;
         }
-        visited[row][col]=true;
-        for (int i = 0; i < move.length; i++) {
-            row+=move[i][0];
-            col+=move[i][1];
-            backtrack(row, col, index+1, visited);
-            row-=move[i][0];
-            col-=move[i][1];
+
+        if(i<0||i>=board.length||j<0||j>=board[0].length||used[i][j]||board[i][j]!=word.charAt(start)){
+            return;
         }
-        visited[row][col]=false;
+
+        used[i][j]=true;    // 选择：标记当前格子已使用
+        for(int[] dir:dirs){
+            int x=i+dir[0];
+            int y=j+dir[1];
+            search(board,x,y,word,start+1,used);
+        }
+        used[i][j]=false;   // 回溯：撤销标记，给别的分支使用这个格子
+
     }
 }

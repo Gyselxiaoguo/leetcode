@@ -12,11 +12,11 @@ class Solution {
             for (int j = 0; j < n; j++) {
                 if(board[i][j]!='.'){
                     int num=board[i][j]-'1';    //对应列索引
-                    int blockIndex=i/3*3+j/3;   //9个3x3的块的索引
+                    int blockIndex=i/3*3+j/3;   //9个3x3的块的索引。 i/3 确定所在行组，*3 得到行组起始编号，再加 j/3 得到最终宫格序号
 
-                    if(row[i][num]||col[j][num]||block[blockIndex][num]){
+                    if(row[i][num]||col[j][num]||block[blockIndex][num]){   // 行、列、宫格任意一个维度已出现该数字，说明重复，数独不合法
                         return false;
-                    }else {
+                    }else { // 无重复，将三个维度对应位置标记为「已出现」
                         row[i][num]=true;
                         col[j][num]=true;
                         block[blockIndex][num]=true;

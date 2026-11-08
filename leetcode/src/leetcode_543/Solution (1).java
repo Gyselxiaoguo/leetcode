@@ -21,9 +21,9 @@ class Solution {
     }
     private int depth(TreeNode root){
         if(root==null)return 0;
-        int left = depth(root.left);
-        int right = depth(root.right);
-        ans=Math.max(ans,left+right);
-        return Math.max(left,right)+1;
+        int left = depth(root.left);    // 左子树最大深度
+        int right = depth(root.right);  // 右子树最大深度
+        ans=Math.max(ans,left+right);   // 左边最深一条链 + 右边最深一条链，就是穿过本节点的路径边数
+        return Math.max(left,right)+1;  // 向上返回给父节点：当前子树的最大深度
     }
 }

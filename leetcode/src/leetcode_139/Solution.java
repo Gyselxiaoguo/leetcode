@@ -49,3 +49,35 @@ class Solution {
         return false;
     }
 }
+
+
+/**
+ * 没有剪枝的方法--------会超时，但方便理解
+ *
+ * class Solution {
+ *     boolean isFound=false;
+ *     public boolean wordBreak(String s, List<String> wordDict) {
+ *         traversal(s,0,wordDict);
+ *         return isFound;
+ *     }
+ *     private void traversal(String s,int start,List<String> wordDict){
+ *         if(start==s.length()){
+ *             isFound=true;
+ *             return;
+ *         }
+ *
+ *         for(String word:wordDict){
+ *             int len=word.length();
+ *             if(start+len>s.length()){
+ *                 continue;
+ *             }
+ *             String temp=s.substring(start,start+len);
+ *
+ *             if(word.equals(temp)){
+ *                 traversal(s,start+len,wordDict);
+ *             }
+ *         }
+ *
+ *     }
+ * }
+ */

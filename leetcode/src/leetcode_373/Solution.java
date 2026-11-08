@@ -7,10 +7,10 @@ class Solution {
         List<List<Integer>> res=new ArrayList<>();
         //数组a中存放了num1和num2的索引。这是个小根堆
         PriorityQueue<int[]> deap=new PriorityQueue<>((a,b)->
-                (nums1[a[0]]+nums2[a[1]])-(nums1[b[0]]+nums2[b[1]]));
+                                                    (nums1[a[0]]+nums2[a[1]])-(nums1[b[0]]+nums2[b[1]]));
         //num1中的每个元素均与num2中的第一个元素的索引结合
         for(int i=0;i<nums1.length;i++){
-            deap.add(new int[]{i,0});
+            deap.add(new int[]{i,0});   //存索引
         }
 
         while(k>0&&!deap.isEmpty()){

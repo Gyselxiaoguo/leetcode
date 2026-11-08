@@ -11,7 +11,7 @@ class Solution {
         int maxLen=1;
         int curLen=1;
 
-        Set<Integer> set=new TreeSet<>();
+        Set<Integer> set=new TreeSet<>();   //自动排序
         for(int num:nums){
             set.add(num);
         }

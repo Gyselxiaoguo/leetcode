@@ -6,7 +6,7 @@ class Solution {
 
     public boolean canFinish(int numCourses, int[][] prerequisites) {
         // map: key=课程节点, value=该节点前驱数量，所有出现过的节点初始0
-        Map<Integer, Integer> map = new HashMap<>();
+        Map<Integer, Integer> map = new HashMap<>();    //可以直接学习的课程的value=0；
         // 邻接表：记录边 condition -> course，学完condition才能学course
         Map<Integer, List<Integer>> adj = new HashMap<>();
         Queue<Integer> queue = new ArrayDeque<>();

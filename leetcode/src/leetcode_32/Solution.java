@@ -11,16 +11,17 @@ class Solution {
         boolean[] marks=new boolean[n];
         Stack<Integer> stack=new Stack<>();
         //标记有效括号位置
-        for (int i = 0; i < n; i++) {
-            if(stack.isEmpty()&&s.charAt(i)==')'){
-                continue;
-            }
-            if(s.charAt(i)=='('){
+        for(int i=0;i<n;i++){
+            char c=s.charAt(i);
+
+            if(c=='('){
                 stack.push(i);
-            }else if(s.charAt(i)==')'){
-                Integer pos = stack.pop();
-                marks[pos]=true;
-                marks[i]=true;
+            }else {
+                if(!stack.isEmpty()){
+                    int top=stack.pop();
+                    marks[top]=true;
+                    marks[i]=true;
+                }
             }
         }
 

@@ -2,12 +2,14 @@ package leetcode_155;
 
 import java.util.Stack;
 
+//两个栈就行
 class MinStack {
-    Stack<Integer> stack=new Stack<>();
-    Stack<Integer> minStack=new Stack<>();
+    Stack<Integer> stack;
+    Stack<Integer> minStack;
 
     public MinStack() {
-        
+        stack=new Stack<>();
+        minStack=new Stack<>();
     }
     
     public void push(int val) {

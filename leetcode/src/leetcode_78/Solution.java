@@ -13,7 +13,7 @@ class Solution {
 
     private void backtracking(int[] nums,int startIndex){
         res.add(new ArrayList<>(path));
-        if(startIndex>=nums.length){
+        if(startIndex==nums.length){
             return;
         }
         for(int i=startIndex;i<nums.length;i++){

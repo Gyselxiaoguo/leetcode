@@ -8,11 +8,15 @@ class Solution {
         boolean[][] dp=new boolean[m+1][n+1];
         dp[0][0]=true;
         /* 找到s3以哪个字符串打头*/
-        for (int i = 1; i <= m&&(s1.charAt(i-1)==s3.charAt(i-1)); i++) {// 边界：只取s1，不取s2;匹配失败直接中断循环
-            dp[i][0]=true;
+        for (int i = 1; i <= m; i++) {// 边界：只取s1，不取s2;匹配失败直接中断循环
+            if(dp[i-1][0]&&s1.charAt(i-1)==s3.charAt(i-1)){
+                dp[i][0]=true;
+            }
         }
-        for (int i = 1; i <= n&&(s2.charAt(i-1)==s3.charAt(i-1)); i++) {// 边界：只取s2，不取s1;匹配失败直接中断循环
-            dp[0][i]=true;
+        for (int j = 1; j <= n; j++) {// 边界：只取s2，不取s1;匹配失败直接中断循环
+            if(dp[0][j-1]&&s2.charAt(j-1)==s3.charAt(j-1)){
+                dp[0][j]=true;
+            }
         }
 
         /**

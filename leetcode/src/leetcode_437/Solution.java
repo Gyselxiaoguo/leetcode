@@ -25,17 +25,17 @@ class Solution {
         if(root==null)return 0;
         Queue<TreeNode> queue=new ArrayDeque<>();
         queue.add(root);
-        int total=0;//记录个数
+        int res=0;//记录个数
         while (!queue.isEmpty()){
             int n = queue.size();
             for (int i = 0; i < n; i++) {
                 TreeNode node = queue.poll();
-                total+= dfs(node, 0, targetSum);
+                res+= dfs(node, 0, targetSum);
                 if(node.left!=null)queue.add(node.left);
                 if(node.right!=null)queue.add(node.right);
             }
         }
-        return total;
+        return res;
     }
     private int dfs(TreeNode node,long curSum,int targetSum){
         if(node==null)return 0;
@@ -48,5 +48,4 @@ class Solution {
         count += dfs(node.right,curSum,targetSum);
         return count;
     }
-
 }

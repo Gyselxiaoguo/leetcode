@@ -2,26 +2,28 @@ package leetcode_283;
 
 class Solution {
     public void moveZeroes(int[] nums) {
+        int n=nums.length;
+        if(n<=1){
+            return;
+        }
         int left=0;
-        for(int right=1;right<nums.length;){
+        int right=1;
+        while(right<n){
             if(nums[left]==0&&nums[right]!=0){
                 swap(nums,left,right);
                 left++;
                 right++;
             }else if(nums[left]==0&&nums[right]==0){
                 right++;
-            }else if(nums[left]!=0&&nums[right]==0){
-                left++;
-                right++;
-            }else if(nums[left]!=0&&nums[right]!=0){
+            }else{
                 left++;
                 right++;
             }
         }
     }
-    private void swap(int[] nums,int a,int b){
-            int temp=nums[a];
-            nums[a]=nums[b];
-            nums[b]=temp;
-        }
+    private void swap(int[] nums,int i,int j){
+        int temp=nums[i];
+        nums[i]=nums[j];
+        nums[j]=temp;
+    }
 }

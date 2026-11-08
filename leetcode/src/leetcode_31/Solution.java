@@ -2,6 +2,10 @@ package leetcode_31;
 
 import java.util.Arrays;
 
+/**
+ * 从后向前，找到第一个打破降序规则的位置，交换后面第一个比他大的位置上的数
+ * 21431 -> 23114
+ */
 class Solution {
     public void nextPermutation(int[] nums) {
         for (int i = nums.length-1; i >=0; i--) {

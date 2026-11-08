@@ -17,11 +17,9 @@ class Solution {
         while(l1!=null||l2!=null){
             int value1=l1==null?0:l1.val;
             int value2=l2==null?0:l2.val;
-            int sum=0;
+            int sum=value1+value2;
             if(isCarry){
-                sum=value1+value2+1;
-            }else{
-                sum=value1+value2;
+                sum+=1;
             }
 
             isCarry=sum>=10;
@@ -31,7 +29,8 @@ class Solution {
             if(l1!=null)l1=l1.next;
             if(l2!=null)l2=l2.next;
         }
-        if(isCarry){
+        
+        if(isCarry){    //进位
             cur.next=new ListNode(1);
         }
         return dummy.next;

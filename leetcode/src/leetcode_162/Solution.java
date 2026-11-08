@@ -6,10 +6,10 @@ class Solution {
         int right=nums.length-1;
         while (left<right){
             int mid=(left+right)/2;
-            if(nums[mid]>nums[mid+1]){   // 下坡，峰值在左侧（含mid）
-                right=mid;
-            }else { // 上坡，峰值在右侧
+            if(nums[mid]<nums[mid+1]){   // 上坡，峰值在右侧
                 left=mid+1;
+            }else { // 下坡，峰值在左侧（含mid）
+                right=mid;
             }
         }
         return right;

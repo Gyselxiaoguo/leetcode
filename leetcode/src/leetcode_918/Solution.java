@@ -22,7 +22,8 @@ class Solution {
         int totalMin=Arrays.stream(curMin).min().orElse(Integer.MAX_VALUE);
         int sum=Arrays.stream(nums).sum();
 
-        if(sum==totalMin){  //全为负数
+
+        if (totalMax < 0) { //数组中所有元素全都是负数
             return totalMax;
         }
         return Math.max(totalMax,sum-totalMin);//连续最大，总和-连续最小

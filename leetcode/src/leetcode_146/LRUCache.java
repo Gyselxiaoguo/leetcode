@@ -4,12 +4,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 //双向链表
-class Node{
-    Node pre;
-    Node next;
+class ListNode {
+    ListNode pre;
+    ListNode next;
     int key;
     int value;
-    Node(int key,int value){
+    ListNode(){}
+    ListNode(int key, int value){
         this.key=key;
         this.value=value;
     }
@@ -18,22 +19,20 @@ class Node{
 
 class LRUCache {
 
-    Map<Integer,Node> map=new HashMap<>();
+    Map<Integer, ListNode> map=new HashMap<>();  //Map集合
     int capacity;
-    Node head;
-    Node tail;
+    ListNode head=new ListNode();                             //双链表标配，头尾节点
+    ListNode tail=new ListNode();
 
     public LRUCache(int capacity) {
         this.capacity=capacity;
-        head=new Node(-1,-1);
-        tail=new Node(-1,-1);
         head.next=tail;
         tail.pre=head;
     }
     
     public int get(int key) {
         if(map.containsKey(key)){
-            Node node=map.get(key);
+            ListNode node=map.get(key);
             cutNode(node);
             insertHead(node);
             return node.value;
@@ -43,39 +42,42 @@ class LRUCache {
     
     public void put(int key, int value) {
         if(map.containsKey(key)){
-            Node node=map.get(key);
+            ListNode node=map.get(key);
             node.value=value;
             cutNode(node);
             insertHead(node);
         }else {
-            Node node=new Node(key,value);
+            ListNode node=new ListNode(key,value);
             map.put(key,node);
             insertHead(node);
             if(map.size()>capacity){//超出存储尺寸
-                Node delNode=cutTail();
+                ListNode delNode=cutTail();
                 map.remove(delNode.key);
             }
         }
     }
-    private void cutNode(Node node){//删除当前节点
+
+    //1.删除当前节点
+    private void cutNode(ListNode node){
         node.pre.next=node.next;
         node.next.pre=node.pre;
         node.pre=null;
         node.next=null;
     }
-    private Node cutTail(){//切除最后一个节点
-        Node last=tail.pre;
-        last.pre.next=tail;
-        tail.pre=last.pre;
-        last.pre=null;
-        last.next=null;
+
+    //2.切除最后一个节点
+    private ListNode cutTail(){
+        ListNode last=tail.pre;
+        cutNode(last);
         return last;
     }
-    private void insertHead(Node node){//将节点插入到头节点
-        Node next=head.next;
-        node.next=next;
+
+    //3.将节点插入到头节点
+    private void insertHead(ListNode node){
+        ListNode oldFirst=head.next;
+        node.next=oldFirst;
         node.pre=head;
-        next.pre=node;
+        oldFirst.pre=node;
         head.next=node;
     }
 }

@@ -9,6 +9,9 @@ class ListNode {
     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
 }
 
+/**
+ * 倒数第n个节点，可以先找正数第n个节点的位置，将其移动就行
+ */
 class Solution {
     public ListNode removeNthFromEnd(ListNode head, int n) {
         ListNode dummy=new ListNode(0,head);//虚拟节点，方便找头节点

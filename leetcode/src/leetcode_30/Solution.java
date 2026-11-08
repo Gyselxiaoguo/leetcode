@@ -28,7 +28,7 @@ class Solution {
             int left=offset;
             int right=offset;
             int valid=0;    //窗口内有效单词数量
-            Map<String,Integer> window=new HashMap<>();
+            Map<String,Integer> win=new HashMap<>();
 
             // 右指针不断向右滑动，每次跳一个单词长度
             while (right+wordLen<=s.length()){
@@ -39,29 +39,31 @@ class Solution {
                 if(!map.containsKey(curWord)){
                     left=right;
                     valid=0;
-                    window.clear();
+                    win.clear();    // 对象还在，里面内容清空，可以继续put
                 }else {
-                    window.put(curWord,window.getOrDefault(curWord,0)+1);
-                    if(map.get(curWord).equals(window.get(curWord))){
+                    //1.向win中添加
+                    win.put(curWord,win.getOrDefault(curWord,0)+1);
+                    if(map.get(curWord).equals(win.get(curWord))){
                         valid++;
                     }
 
-                    // 当前单词数量超出需求，收缩左边界
-                    while (window.get(curWord) > map.get(curWord)) {
+                    //2.当前单词数量超出需求，收缩左边界
+                    while (win.get(curWord) > map.get(curWord)) {
                         String leftWord = s.substring(left, left + wordLen);
-                        if(window.get(leftWord).equals(map.get(leftWord))){
+                        if(win.get(leftWord).equals(map.get(leftWord))){
                             valid--;
                         }
-                        window.put(leftWord, window.get(leftWord) - 1); //窗口种相应种类的单词数-1
+                        win.put(leftWord, win.get(leftWord) - 1); //窗口种相应种类的单词数-1
                         left += wordLen;
                     }
 
-                    // 凑齐全部单词，记录起始位置
+                    //3.凑齐全部单词，记录起始位置
                     if(valid==map.size()){
                         res.add(left);
                     }
                 }
             }
+
         }
         return res;
     }
