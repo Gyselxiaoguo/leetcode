@@ -8,7 +8,7 @@ class Solution {
         String newS = s.replace(" ", "");
 
         //2.操作数栈 运算符栈
-        Stack<Character> opStack=new Stack<>();
+        Stack<Character> symbolStack=new Stack<>();
         Stack<Integer> numStack=new Stack<>();
         int i=0;
         int n = newS.length();
@@ -18,7 +18,7 @@ class Solution {
             // 预防表达式开头的正负号，如 "-2+1" -> 补 0 变成 "0-2+1"
             if(i==0&&(c=='+'||c=='-')){
                 numStack.push(0);
-                opStack.push(c);
+                symbolStack.push(c);
                 i++;
                 continue;
             }
@@ -31,29 +31,29 @@ class Solution {
                 }
                 numStack.push(num);
             } else if (c=='(') {    //遇到‘（’
-                opStack.push(c);
+                symbolStack.push(c);
                 i++;
                 // 如果括号后紧跟 '+' 或 '-'，如 "(-3)"，补一个 0 变成 "(0-3)"
                 if (i < n && (newS.charAt(i) == '+' || newS.charAt(i) == '-')) {
                     numStack.push(0);
                 }
             } else if (c==')') {    //遇到‘）’,计算到左括号为止
-                while (opStack.peek()!='('){
-                    calc(numStack,opStack);
+                while (symbolStack.peek()!='('){
+                    calc(numStack,symbolStack);
                 }
-                opStack.pop();  //弹出‘（’
+                symbolStack.pop();  //弹出‘（’
                 i++;
             }else if(c == '+' || c == '-') {   //运算符
-                while (!opStack.isEmpty()&&opStack.peek()!='('){
-                    calc(numStack,opStack);
+                while (!symbolStack.isEmpty()&&symbolStack.peek()!='('){
+                    calc(numStack,symbolStack);
                 }
-                opStack.push(c);
+                symbolStack.push(c);
                 i++;
             }
         }
         // 遍历完，处理栈中剩余运算符
-        while (!opStack.isEmpty()){
-            calc(numStack,opStack);
+        while (!symbolStack.isEmpty()){
+            calc(numStack,symbolStack);
         }
         return numStack.pop();
     }

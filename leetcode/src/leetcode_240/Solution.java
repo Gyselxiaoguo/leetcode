@@ -6,15 +6,17 @@ package leetcode_240;
  */
 class Solution {
     public boolean searchMatrix(int[][] matrix, int target) {
-        int startRow=0;
-        int startCol=matrix[0].length-1;
-        while (startCol>=0 && startRow<matrix.length){
-            int rightTop=matrix[startRow][startCol];
-            if(target<rightTop){
-                startCol--;
-            } else if (target>rightTop) {
-                startRow++;
-            }else {
+        int m=matrix.length;
+        int n=matrix[0].length;
+
+        int row=0;
+        int col=n-1;
+        while(row<m&&col>=0){
+            if(matrix[row][col]>target){
+                col--;
+            }else if(matrix[row][col]<target){
+                row++;
+            }else{
                 return true;
             }
         }

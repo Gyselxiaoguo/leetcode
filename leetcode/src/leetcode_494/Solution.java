@@ -17,7 +17,7 @@ class Solution {
         int[][] dp=new int[n][newTarget+1];
 
         dp[0][0]=1;
-        for(int j=0;j<=newTarget;j++){
+        for(int j=0;j<=newTarget;j++){  //初始化第一行
             if(j==nums[0]){
                 dp[0][j]+=1;    //就是防止元素为0；
             }

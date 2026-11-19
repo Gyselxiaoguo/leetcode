@@ -6,16 +6,17 @@ class Solution {
         String maxStr="";
         int maxLen=0;
         for (int i = 0; i < s.length(); i++) {
+            char c=s.charAt(i);
             //字符不在maxStr中，拼接
-            if(maxStr.indexOf(s.charAt(i))==-1){
-                maxStr+=s.charAt(i);
+            if(maxStr.indexOf(c)==-1){
+                maxStr+=c;
             }else {
                 //字符在maxStr中，从maxStr中取出重复字符之后的串，然后再与新字符拼接
-                int reIndex=maxStr.indexOf(s.charAt(i));
+                int reIndex=maxStr.indexOf(c);
                 maxStr=maxStr.substring(reIndex+1);
-                maxStr+=s.charAt(i);
+                maxStr+=c;
             }
-            if(maxStr.length()>maxLen) maxLen=maxStr.length();
+            maxLen=Math.max(maxLen,maxStr.length());
         }
         return maxLen;
     }

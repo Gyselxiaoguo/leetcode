@@ -30,22 +30,22 @@ class Solution {
             int n = queue.size();
             for (int i = 0; i < n; i++) {
                 TreeNode node = queue.poll();
-                res+= dfs(node, 0, targetSum);
+                res+= dfs(node,  targetSum);
                 if(node.left!=null)queue.add(node.left);
                 if(node.right!=null)queue.add(node.right);
             }
         }
         return res;
     }
-    private int dfs(TreeNode node,long curSum,int targetSum){
+    private int dfs(TreeNode node,long targetSum){
         if(node==null)return 0;
         int count=0;
-        curSum+=node.val;
-        if(curSum==targetSum){
+        targetSum-=node.val;
+        if(targetSum==0){
             count++;
         }
-        count += dfs(node.left, curSum, targetSum);
-        count += dfs(node.right,curSum,targetSum);
+        count += dfs(node.left, targetSum);
+        count += dfs(node.right,targetSum);
         return count;
     }
 }

@@ -26,7 +26,7 @@ class Solution {
         int right=0;
 
         while (right<s.length()){
-            //统计窗口中各种字符出现的次数
+            //1.统计窗口中各种字符出现的次数
             char rChar = s.charAt(right);
             if(tMap.containsKey(rChar)){
                 win.put(rChar,win.getOrDefault(rChar,0)+1);
@@ -35,7 +35,8 @@ class Solution {
                 }
             }
 
-            while(valid==tMap.size()){   //窗口已覆盖t，尝试收缩窗口
+            //2.窗口已覆盖t，尝试收缩窗口
+            while(valid==tMap.size()){
                 //尝试更新覆盖t的最小窗口长度
                 int curLen = right - left + 1;
                 if (curLen < minLen) {

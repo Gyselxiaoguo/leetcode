@@ -18,5 +18,8 @@ public class StringTest {
 
         int i = Integer.parseInt("23");
         System.out.println(i*10);
+
+        String ss="abc";
+        System.out.println("--"+ss.substring(3)+"--");  //空字符串
     }
 }

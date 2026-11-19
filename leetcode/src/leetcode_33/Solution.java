@@ -10,15 +10,13 @@ class Solution {
                 return mid;
             }
             //判断mid落在了哪个单调区间
-            if(nums[left]<=nums[mid]) {
-                //落在了左边
+            if(nums[left]<=nums[mid]) {//落在了左边的单调区间
                 if (nums[left] <= target && target < nums[mid]) {
                     right = mid - 1;
                 } else {
                     left = mid + 1;
                 }
-            }else{
-                //other
+            }else{//落到了右边的单调区间
                 if(nums[right]>=target&&target>nums[mid]){
                     left=mid+1;
                 }else {
